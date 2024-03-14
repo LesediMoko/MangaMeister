@@ -4,7 +4,7 @@ import { IManga } from "../types/app-types";
 import { ITrendingManga } from "../types/subtypes";
 import useMangaStore from '../stores/store'
 
-function Home() {
+function Trending() {
     const imageUrlPrefix = 'https://meo3.comick.pictures/'
     const fetchTrendingMangas = async (): Promise<ITopComicsAPIResponse> => {
         const response = await fetch('https://api.comick.io/top?comic_types=manga&accept_mature_content=false');
@@ -60,4 +60,4 @@ function Home() {
         </div>
     )
 }
-export default Home
+export default Trending
