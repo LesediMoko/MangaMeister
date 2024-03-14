@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { IManga } from "../types/app-types";
 import { ITrendingManga } from "../types/subtypes";
 import useMangaStore from '../stores/store'
-import { fetchTrendingMangas } from "../services/api.service";
+import { fetchTrendingMangas } from "../services/api-service";
 
 function Trending() {
 
