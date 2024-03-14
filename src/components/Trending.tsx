@@ -1,18 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { ITopComicsAPIResponse } from "../types/api-types";
 import { IManga } from "../types/app-types";
 import { ITrendingManga } from "../types/subtypes";
 import useMangaStore from '../stores/store'
+import { fetchTrendingMangas } from "../services/api.service";
 
 function Trending() {
-    const imageUrlPrefix = 'https://meo3.comick.pictures/'
-    const fetchTrendingMangas = async (): Promise<ITopComicsAPIResponse> => {
-        const response = await fetch('https://api.comick.io/top?comic_types=manga&accept_mature_content=false');
-        if (!response.ok) {
-            throw new Error('Network call failed');
-        }
-        return response.json();
-    };
 
     const { isPending, error, data: TopComicsResponse } = useQuery({
         queryKey: ['fetchTrendingMangas'],
@@ -35,7 +27,7 @@ function Trending() {
                 description: "Placeholder Description",
                 genres: [],
                 chapters: 100,
-                coverImage: imageUrlPrefix + manga.md_covers[0].b2key,
+                coverImage: useMangaStore.getState().imageUrlPrefix + manga.md_covers[0].b2key,
                 authors: [],
                 artists: []
             }
