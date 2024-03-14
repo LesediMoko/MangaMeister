@@ -23,6 +23,7 @@ export interface MangaReaderState {
     mangas: IManga[];
     chapters: IChapter[];
     trendingMangas: Manga[];
+    imageUrlPrefix: string;
     selectedManga: IManga | null;
     selectedChapter: IChapter | null;
     fetchTrendingMangas: (mangas: IManga[]) => void;

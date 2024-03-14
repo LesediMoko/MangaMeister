@@ -5,6 +5,7 @@ export const useMangaStore = create<MangaReaderState>((set) => ({
     mangas: [],
     selectedChapter: null,
     chapters: [],
+    imageUrlPrefix: "https://meo3.comick.pictures/",
     trendingMangas: [],
     selectedManga: null,
     fetchManga: () => set({}),
