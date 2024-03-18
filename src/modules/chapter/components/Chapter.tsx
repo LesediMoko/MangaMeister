@@ -8,7 +8,7 @@ import useMangaStore from "../../common/stores/store"
 const Chapter = () => {
 
 
-    const { chapterHID } = useParams()!
+    const { chapterHID } = useParams()
     const { isPending: isPendingChapterInfo, error: errorChapterInfo, data: chapterInfo } = useQuery({
         queryKey: ['fetchChapterPages', chapterHID],
         queryFn: () => fetchChapterInfo(chapterHID!),

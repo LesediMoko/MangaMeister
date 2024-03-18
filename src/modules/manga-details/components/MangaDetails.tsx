@@ -44,15 +44,15 @@ const MangaDetails = () => {
 
     return (
         <>
-            <div className="flex flex-col w-full gap-4 pl-4">
-                <img className='h-1/2s w-3/5 place-self-center p-2 m-4 rounded-xl border' src={useMangaStore.getState().selectedManga?.coverImage} alt={`${useMangaStore.getState().selectedManga?.title} Cover`} />
-                <h3 className="card-title">{useMangaStore.getState().selectedManga?.title}</h3>
-                <div className='flex flex-row'>
+            <div className="flex flex-col w-full gap-4 pl-4 md:flex-row">
+                <img className='h-1/2s w-3/5 place-self-center p-2 m-4 rounded-xl border md:h-80 md:place-self-start md:w-1/6' src={useMangaStore.getState().selectedManga?.coverImage} alt={`${useMangaStore.getState().selectedManga?.title} Cover`} />
+                <h3 className="card-title md:place-self-center text-4xl">{useMangaStore.getState().selectedManga?.title}</h3>
+                <div className='flex flex-row md:place-self-center'>
                     {useMangaStore.getState().selectedManga?.authors.map(author => (<p key={author.slug}>{`${author.name} `}</p>))}
                     <p>&nbsp;| {useMangaStore.getState().selectedManga?.chapterTotal} Chapters</p>
                 </div>
-                <h5>Description</h5>
-                <p className='pb-8'>{useMangaStore.getState().selectedManga?.description}</p>
+                <h5 className='md:hidden'>Description</h5>
+                <p className='pb-8 md:place-self-end md:-ml-80'>{useMangaStore.getState().selectedManga?.description}</p>
             </div>
             <ChapterList listOfChapters={useMangaStore.getState().selectedManga!.chapterList} />
 
