@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { IManga } from "../types/app-types";
-import { ITrendingManga } from "../types/subtypes";
-import useMangaStore from '../stores/store'
-import { fetchTrendingMangas } from "../services/api-service";
+import { ITrendingMangaApp } from "../common/types/app-types";
+import { ITrendingManga } from "../common/types/subtypes";
+import useMangaStore from '../common/stores/store'
+import { fetchTrendingMangas } from "../common/services/api-service";
 
 function Trending() {
 
@@ -20,16 +20,11 @@ function Trending() {
     }
 
     if (TopComicsResponse) {
-        const trendingMangas: IManga[] = TopComicsResponse.trending[30].map((manga: ITrendingManga) => {
+        const trendingMangas: ITrendingMangaApp[] = TopComicsResponse.trending[30].map((manga: ITrendingManga) => {
             return {
                 slug: manga.slug,
                 title: manga.title!,
-                description: "Placeholder Description",
-                genres: [],
-                chapters: 100,
                 coverImage: useMangaStore.getState().imageUrlPrefix + manga.md_covers[0].b2key,
-                authors: [],
-                artists: []
             }
 
         })
@@ -40,7 +35,7 @@ function Trending() {
         <div id="carousel-container" className="">
             <strong className="text-left">Trending:</strong>
             <div className="carousel carousel-center max-w-md p-4 space-x-4 bg-neutral rounded-box">
-                {useMangaStore.getState().trendingMangas.map((manga: IManga) => {
+                {useMangaStore.getState().trendingMangas.map((manga: ITrendingMangaApp) => {
                     return (
                         <div key={manga.slug} className="carousel-item h-80 w-full">
                             <img src={manga.coverImage} className="rounded-box" />
