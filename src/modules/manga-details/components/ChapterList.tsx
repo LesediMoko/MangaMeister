@@ -11,7 +11,7 @@ const ChapterList = ({ listOfChapters }: IChapterListProps) => {
                     (<li className="p-2" key={chapter.hid}>
                         <span>
                             <Link to={`${chapter.hid}`}>{`${chapter.chapterNumber} - ${chapter.title}`}</Link>
-                            <Votes upVotes={chapter.upCount} position='text-right' />
+                            <Votes upVotes={chapter.upCount} />
                         </span>
                     </li>)
             })}

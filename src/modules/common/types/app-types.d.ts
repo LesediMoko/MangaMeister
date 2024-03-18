@@ -51,7 +51,6 @@ export interface IChapterNavBarProps {
 
 export interface IVotesProps {
     upVotes: number;
-    position: string;
 }
 
 export interface MangaReaderState {
