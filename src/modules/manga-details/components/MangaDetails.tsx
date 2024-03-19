@@ -16,8 +16,8 @@ const MangaDetails = () => {
     })
 
 
-    const comicHid = comicInfo?.comic.hid;
-    const comicChapterTotal = comicInfo?.comic.last_chapter;
+    const comicHid = comicInfo?.comic?.hid;
+    const comicChapterTotal = comicInfo?.comic?.last_chapter;
 
     const { isPending: isPendingChapterList, error: errorChapterList, data: chapterListInfo } = useQuery({
         queryKey: ['fetchChapterList', comicHid],
