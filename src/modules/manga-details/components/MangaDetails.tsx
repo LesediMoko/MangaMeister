@@ -8,19 +8,20 @@ import { useParams } from 'react-router';
 
 
 const MangaDetails = () => {
-    const { selectedSlug } = useParams()!
-    const { isPending: isPendingComic, error: errorComic, data: ComicInfo } = useQuery({
+    const { selectedSlug } = useParams()
+    const { isPending: isPendingComic, error: errorComic, data: comicInfo } = useQuery({
         queryKey: ['fetchComicInfo', selectedSlug],
-        queryFn: () => fetchComicInfo(selectedSlug!),
+        queryFn: () => fetchComicInfo(selectedSlug ?? ''),
         enabled: !!selectedSlug
     })
 
-    const comicHid = ComicInfo?.comic.hid;
-    const comicChapterTotal = ComicInfo?.comic.last_chapter;
+
+    const comicHid = comicInfo?.comic.hid;
+    const comicChapterTotal = comicInfo?.comic.last_chapter;
 
     const { isPending: isPendingChapterList, error: errorChapterList, data: chapterListInfo } = useQuery({
         queryKey: ['fetchChapterList', comicHid],
-        queryFn: () => fetchChapterListInfo(comicHid!, comicChapterTotal!),
+        queryFn: () => fetchChapterListInfo(comicHid ?? '', comicChapterTotal ?? 0),
         enabled: !!comicHid && !!comicChapterTotal
     })
 
@@ -33,10 +34,9 @@ const MangaDetails = () => {
     }
 
     const currentChapterList: ISelectedChapter[] = chapterListResponseFilter(chapterListInfo)
-    const currentManga: ISelectedManga = comicResponseFilter(ComicInfo, selectedSlug!, currentChapterList);
+    const currentManga: ISelectedManga = comicResponseFilter(comicInfo, selectedSlug!, currentChapterList);
     useMangaStore.setState({ selectedManga: currentManga })
     useMangaStore.setState({ chapters: currentChapterList })
-    console.log(useMangaStore.getState().chapters)
 
     if (useMangaStore.getState().selectedManga == null) {
         return <div>{`${currentManga.title} is not available.`}</div>
@@ -45,7 +45,7 @@ const MangaDetails = () => {
     return (
         <>
             <div className="flex flex-col w-full gap-4 pl-4 md:flex-row">
-                <img className='h-1/2s w-3/5 place-self-center p-2 m-4 rounded-xl border md:h-80 md:place-self-start md:w-1/6' src={useMangaStore.getState().selectedManga?.coverImage} alt={`${useMangaStore.getState().selectedManga?.title} Cover`} />
+                <img className='h-1/2 w-3/5 place-self-center p-2 m-4 rounded-xl border md:h-80 md:place-self-start md:w-1/6' src={useMangaStore.getState().selectedManga?.coverImage} alt={`${useMangaStore.getState().selectedManga?.title} Cover`} />
                 <h3 className="card-title md:place-self-center text-4xl">{useMangaStore.getState().selectedManga?.title}</h3>
                 <div className='flex flex-row md:place-self-center'>
                     {useMangaStore.getState().selectedManga?.authors.map(author => (<p key={author.slug}>{`${author.name} `}</p>))}

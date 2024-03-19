@@ -10,8 +10,8 @@ const Chapter = () => {
 
     const { chapterHID } = useParams()
     const { isPending: isPendingChapterInfo, error: errorChapterInfo, data: chapterInfo } = useQuery({
-        queryKey: ['fetchChapterPages', chapterHID],
-        queryFn: () => fetchChapterInfo(chapterHID!),
+        queryKey: ['fetchChapterPages', chapterHID ?? ''],
+        queryFn: () => fetchChapterInfo(chapterHID ?? ''),
         enabled: !!chapterHID
     })
     const allChapters = useMangaStore.getState().chapters

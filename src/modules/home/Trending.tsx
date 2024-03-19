@@ -6,7 +6,7 @@ import { fetchTrendingMangas } from "../common/services/api-service";
 
 function Trending() {
 
-    const { isPending, error, data: TopComicsResponse } = useQuery({
+    const { isPending, error, data: topComicsResponse } = useQuery({
         queryKey: ['fetchTrendingMangas'],
         queryFn: fetchTrendingMangas
     })
@@ -19,8 +19,8 @@ function Trending() {
         return <div>Error: {error.message}</div>
     }
 
-    if (TopComicsResponse) {
-        const trendingMangas: ITrendingMangaApp[] = TopComicsResponse.trending[30].map((manga: ITrendingManga) => {
+    if (topComicsResponse) {
+        const trendingMangas: ITrendingMangaApp[] = topComicsResponse.trending[30].map((manga: ITrendingManga) => {
             return {
                 slug: manga.slug,
                 title: manga.title!,
