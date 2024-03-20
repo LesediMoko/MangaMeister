@@ -58,7 +58,7 @@ export interface IMDGenre {
     group: string;
 }
 export interface IMDComicMDGenre {
-    md_genres: IMDGenre[];
+    md_genres: IMDGenre;
 }
 
 export interface IArtist {

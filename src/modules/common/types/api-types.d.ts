@@ -1,4 +1,4 @@
-import { IAdjacentChapter, IChapterFullInfo, IChapterLangList, IDupGroupChapter, IFollows, INews, IRank, IRecentRank, ITopFollowComic, ITopFollowComic, ITrending } from "./subtypes";
+import { IAdjacentChapter, IChapterFullInfo, IChapterLangList, IDupGroupChapter, IFollows, IChapter, INews, IRank, IRecentRank, ITopFollowComic, ITopFollowComic, ITrending, IComic } from "./subtypes";
 
 export interface ICategoryAPIResponse {
     id: number;
