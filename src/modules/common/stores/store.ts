@@ -8,6 +8,9 @@ export const useMangaStore = create<MangaReaderState>(() => ({
     imageUrlPrefix: "https://meo3.comick.pictures/",
     trendingMangas: [],
     selectedManga: null,
+    newMangas: [],
+    popularMangas: [],
+    topRankedMangas: []
 }));
 
 export default useMangaStore;

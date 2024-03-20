@@ -60,4 +60,7 @@ export interface MangaReaderState {
     imageUrlPrefix: string;
     selectedManga: ISelectedManga | null;
     selectedChapter: ISelectedChapter | null;
+    newMangas: ITrendingMangaApp[];
+    popularMangas: ITrendingMangaApp[]
+    topRankedMangas: ITrendingMangaApp[]
 }
