@@ -47,7 +47,7 @@ export const carouselFilter = (apiResponse: ITopComicsAPIResponse, category: str
                 const newMangaListState: ITrendingMangaApp[] = apiResponse.news.map((manga: INews) => {
                     return {
                         slug: manga.slug,
-                        title: manga.title!,
+                        title: manga.title,
                         coverImage: useMangaStore.getState().imageUrlPrefix + manga.md_covers[0].b2key,
                     }
 
@@ -61,7 +61,7 @@ export const carouselFilter = (apiResponse: ITopComicsAPIResponse, category: str
                 const newMangaListState: ITrendingMangaApp[] = apiResponse.topFollowComics[7].map((manga: INews) => {
                     return {
                         slug: manga.slug,
-                        title: manga.title!,
+                        title: manga.title,
                         coverImage: useMangaStore.getState().imageUrlPrefix + manga.md_covers[0].b2key,
                     }
 
@@ -75,7 +75,7 @@ export const carouselFilter = (apiResponse: ITopComicsAPIResponse, category: str
                 const newMangaListState: ITrendingMangaApp[] = apiResponse.rank.map((manga: IRank) => {
                     return {
                         slug: manga.slug,
-                        title: manga.title!,
+                        title: manga.title ?? "",
                         coverImage: useMangaStore.getState().imageUrlPrefix + manga.md_covers[0].b2key,
                     }
 
