@@ -7,14 +7,10 @@ import ChapterList from './ChapterList';
 import { useParams } from 'react-router';
 import NavBar from '../../common/components/NavBar';
 import { useLocation } from 'react-router-dom';
-// import { useEffect, useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 
 
 const MangaDetails = () => {
     const { selectedSlug } = useParams()
-    //const [previousPage, setPreviousPage] = useState('')
-    //const navi = useNavigate()
     const { state } = useLocation()
     const previousPage = state.previousPage
     console.log(window.location.pathname)
