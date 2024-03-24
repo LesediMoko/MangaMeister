@@ -44,6 +44,8 @@ export const carouselFilter = (apiResponse: ITopComicsAPIResponse, category: str
     switch (category) {
         case "new":
             {
+                if (!(apiResponse && apiResponse.news && apiResponse.news?.length > 0))
+                    return []
                 const newMangaListState: ITrendingMangaApp[] = apiResponse.news.map((manga: INews) => {
                     return {
                         slug: manga.slug,
@@ -58,6 +60,8 @@ export const carouselFilter = (apiResponse: ITopComicsAPIResponse, category: str
             break;
         case "popular":
             {
+                if (!(apiResponse && apiResponse.topFollowComics && apiResponse.topFollowComics["7"] && apiResponse?.topFollowComics["7"]?.length > 0))
+                    return []
                 const newMangaListState: ITrendingMangaApp[] = apiResponse.topFollowComics[7].map((manga: INews) => {
                     return {
                         slug: manga.slug,
@@ -72,6 +76,8 @@ export const carouselFilter = (apiResponse: ITopComicsAPIResponse, category: str
             break;
         case "rank":
             {
+                if (!(apiResponse && apiResponse.rank && apiResponse.rank?.length > 0))
+                    return []
                 const newMangaListState: ITrendingMangaApp[] = apiResponse.rank.map((manga: IRank) => {
                     return {
                         slug: manga.slug,
