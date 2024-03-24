@@ -10,6 +10,11 @@ export const getViewAllCategoryHeading = (category: string) => {
         case "new":
             return "Latest Mangas"
             break;
+        case "rank":
+            return "Top Ranked Mangas"
+        case "popular":
+            return "Most Popular Mangas"
+            break;
         default:
             break;
     }
