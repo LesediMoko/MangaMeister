@@ -34,7 +34,7 @@ function Trending() {
     }
 
     return (
-        <div className="carousel carousel-end bg-black h-80 w-full mb-10">
+        <div className="carousel carousel-end bg-black h-80 w-full mb-10 shadow-md shadow-light-secondary">
             {useMangaStore.getState().trendingMangas.map((manga: ITrendingMangaApp) => {
                 return (
                     <TrendingList slug={manga.slug} title={manga.title} coverImage={manga.coverImage} key={manga.slug} />
