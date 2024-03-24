@@ -8,12 +8,14 @@ const ChapterList = ({ listOfChapters }: IChapterListProps) => {
             <li className="menu-title">Chapters: </li>
             {listOfChapters.map((chapter) => {
                 return chapter.title &&
-                    (<li className="p-2" key={chapter.hid}>
-                        <span>
-                            <Link to={`${chapter.hid}`}>{`${chapter.chapterNumber} - ${chapter.title}`}</Link>
-                            <Votes upVotes={chapter.upCount} />
-                        </span>
-                    </li>)
+                    (<Link to={`${chapter.hid}`}>
+                        <li className="p-2" key={chapter.hid}>
+                            <span>
+                                {`${chapter.chapterNumber} - ${chapter.title}`}
+                                <Votes upVotes={chapter.upCount} />
+                            </span>
+                        </li>
+                    </Link>)
             })}
         </ul>
     )
