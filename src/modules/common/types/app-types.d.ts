@@ -33,6 +33,7 @@ export interface ISelectedChapter {
 
 export interface IPagesProps {
     pages: IMDImages[]
+    chapterID: string;
 }
 
 export interface IMangaDetailsProps {
@@ -63,4 +64,5 @@ export interface MangaReaderState {
     newMangas: ITrendingMangaApp[];
     popularMangas: ITrendingMangaApp[]
     topRankedMangas: ITrendingMangaApp[]
+    scrollPosition: { chapterID: string, position: number };
 }
