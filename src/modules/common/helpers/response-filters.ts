@@ -1,7 +1,7 @@
 import useMangaStore from '../stores/store';
-import { IChaptersAPIResponse, IComicAPIResponse } from '../types/api-types';
-import { ISelectedChapter, ISelectedManga } from '../types/app-types';
-import { IChapter } from '../types/subtypes';
+import { IChaptersAPIResponse, IComicAPIResponse, ITopComicsAPIResponse } from '../types/api-types';
+import { ISelectedChapter, ISelectedManga, ITrendingMangaApp } from '../types/app-types';
+import { IChapter, INews, IRank } from '../types/subtypes';
 
 
 export const comicResponseFilter = (apiResponse: IComicAPIResponse, apiComicSlug: string, chapterList: ISelectedChapter[]) => {
@@ -15,7 +15,7 @@ export const comicResponseFilter = (apiResponse: IComicAPIResponse, apiComicSlug
         title: apiResponse.comic.title,
         description: apiResponse.comic.desc,
         genres: genreNames,
-        chapterTotal: apiResponse.comic.last_chapter,
+        chapterTotal: Math.floor(apiResponse.comic.last_chapter),
         authors: apiResponse.authors,
         artists: apiResponse.artists,
         hid: apiResponse.comic.hid,
@@ -38,4 +38,62 @@ export const chapterListResponseFilter = (apiResponse: IChaptersAPIResponse) => 
         return chapterListItem
     })
     return chapterList
+}
+
+export const carouselFilter = (apiResponse: ITopComicsAPIResponse, category: string) => {
+    switch (category) {
+        case "new":
+            {
+                if (!(apiResponse && apiResponse.news && apiResponse.news?.length > 0))
+                    return []
+                const newMangaListState: ITrendingMangaApp[] = apiResponse.news.map((manga: INews) => {
+                    return {
+                        slug: manga.slug,
+                        title: manga.title,
+                        coverImage: useMangaStore.getState().imageUrlPrefix + manga.md_covers[0].b2key,
+                    }
+
+                })
+                return newMangaListState
+            }
+
+            break;
+        case "popular":
+            {
+                if (!(apiResponse && apiResponse.topFollowComics && apiResponse.topFollowComics["7"] && apiResponse?.topFollowComics["7"]?.length > 0))
+                    return []
+                const newMangaListState: ITrendingMangaApp[] = apiResponse.topFollowComics[7].map((manga: INews) => {
+                    return {
+                        slug: manga.slug,
+                        title: manga.title,
+                        coverImage: useMangaStore.getState().imageUrlPrefix + manga.md_covers[0].b2key,
+                    }
+
+                })
+                return newMangaListState
+            }
+
+            break;
+        case "rank":
+            {
+                if (!(apiResponse && apiResponse.rank && apiResponse.rank?.length > 0))
+                    return []
+                const newMangaListState: ITrendingMangaApp[] = apiResponse.rank.map((manga: IRank) => {
+                    return {
+                        slug: manga.slug,
+                        title: manga.title ?? "",
+                        coverImage: useMangaStore.getState().imageUrlPrefix + manga.md_covers[0].b2key,
+                    }
+
+                })
+                return newMangaListState
+            }
+
+            break;
+
+        default:
+            return []
+            break;
+    }
+
 }

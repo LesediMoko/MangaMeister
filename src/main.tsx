@@ -9,7 +9,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import MangaDetails from './modules/manga-details/components/MangaDetails';
 import Chapter from './modules/chapter/components/Chapter';
 import ErrorPage from './modules/error-page/ErrorPage';
-import Home from './modules/home/Home';
+import Home from './modules/home/components/Home';
+import ViewAll from './modules/view-all/ViewAll';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "view-manga/:selectedSlug/:chapterHID",
     element: <Chapter />
+  },
+  {
+    path: "view-all/:category",
+    element: <ViewAll />
   },
   {
     path: "*",

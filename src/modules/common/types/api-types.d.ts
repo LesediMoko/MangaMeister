@@ -21,7 +21,6 @@ export interface ITopComicsAPIResponse {
 
 
 
-
 export interface IGenreListAPIResponse {
     id: number;
     name: string;

@@ -1,13 +1,20 @@
 import { useQuery } from "@tanstack/react-query"
-import ChapterNavBar from "./ChapterNavBar"
 import Pages from "./Pages"
 import { useParams } from "react-router"
 import { fetchChapterInfo } from "../../common/services/api-service"
 import useMangaStore from "../../common/stores/store"
+import { motion, useScroll, useSpring } from "framer-motion"
+import { useRef } from "react"
+import NavBar from "../../common/components/NavBar"
 
 const Chapter = () => {
-
-
+    const { scrollYProgress } = useScroll();
+    const scaleX = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
+    const pagesRef = useRef(null)
     const { chapterHID } = useParams()
     const { isPending: isPendingChapterInfo, error: errorChapterInfo, data: chapterInfo } = useQuery({
         queryKey: ['fetchChapterPages', chapterHID ?? ''],
@@ -30,13 +37,16 @@ const Chapter = () => {
             useMangaStore.setState({ selectedChapter: oldChapterState })
             return (
                 useMangaStore.getState().selectedChapter &&
-
-
-                <div className="flex flex-col gap-4">
-                    <ChapterNavBar chapterName={useMangaStore.getState().selectedChapter!.title} chapterNumber={useMangaStore.getState().selectedChapter!.chapterNumber} mangaName={useMangaStore.getState().selectedManga!.title} />
-                    <h1 className="place-self-center text-2xl">{useMangaStore.getState().selectedManga!.title}</h1>
-                    <h2 className="place-self-center mb-12">{useMangaStore.getState().selectedChapter?.chapterNumber}. {useMangaStore.getState().selectedChapter!.title}</h2>
-                    <Pages pages={useMangaStore.getState().selectedChapter!.pages!} />
+                <div className="bg-light-primary text-light-secondary dark:bg-dark-primary dark:text-dark-secondary">
+                    <motion.div initial="hidden" whileInView="visible" style={{ scaleX }} className="fixed top-0 left-0 right-0 bg-rose-400 origin-left h-2 z-10" viewport={{ root: pagesRef }} />
+                    <div className="flex flex-col gap-4" ref={pagesRef}>
+                        <NavBar previousPage={useMangaStore.getState().selectedManga!.title} />
+                        <h1 className="place-self-center text-2xl">{useMangaStore.getState().selectedManga!.title}</h1>
+                        <div className="=flex flex-col place-content-center text-center">
+                            <h2 className="place-self-center mb-12">{useMangaStore.getState().selectedChapter?.chapterNumber}. {useMangaStore.getState().selectedChapter!.title}</h2>
+                            <Pages pages={useMangaStore.getState().selectedChapter!.pages!} chapterID={chapterHID!} />
+                        </div>
+                    </div>
                 </div>
             )
         }

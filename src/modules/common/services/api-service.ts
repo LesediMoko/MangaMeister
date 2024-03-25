@@ -19,7 +19,7 @@ export const fetchComicInfo = async (slug: string): Promise<IComicAPIResponse> =
 };
 
 export const fetchChapterListInfo = async (hid: string, chapterTotal: number): Promise<IChaptersAPIResponse> => {
-    const response = await fetch(`${baseUrl}/comic/${hid}/chapters?limit=${chapterTotal}&lang=en`);
+    const response = await fetch(`${baseUrl}/comic/${hid}/chapters?limit=${Math.floor(chapterTotal)}&lang=en`);
     if (!response.ok) {
         throw new Error('Network call failed');
     }
