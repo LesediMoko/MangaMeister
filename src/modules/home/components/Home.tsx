@@ -1,3 +1,4 @@
+import BottomNav from "../../common/components/BottomNav"
 import HomeCarousel from "./HomeCarousel"
 import NameAndLogo from "./NameAndLogo"
 import Trending from "./Trending"
@@ -10,6 +11,7 @@ const Home = () => {
             <HomeCarousel category="new" />
             <HomeCarousel category="popular" />
             <HomeCarousel category="rank" />
+            <BottomNav activePage="Home" />
         </div>
     )
 }
