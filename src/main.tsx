@@ -11,6 +11,7 @@ import Chapter from './modules/chapter/components/Chapter';
 import ErrorPage from './modules/error-page/ErrorPage';
 import Home from './modules/home/components/Home';
 import ViewAll from './modules/view-all/ViewAll';
+import Discover from './modules/discover/components/Discover';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,14 @@ const router = createBrowserRouter([
   {
     path: "view-all/:category",
     element: <ViewAll />
+  },
+  {
+    path: "discover",
+    element: <Discover />
+  },
+  {
+    path: "discover/status/:status",
+    element: <Discover />
   },
   {
     path: "*",
