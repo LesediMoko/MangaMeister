@@ -8,20 +8,31 @@ import NavBar from "../common/components/NavBar";
 
 
 const ViewAll = () => {
-    const [category] = useState(useParams()['category'])
+    const { category } = useParams()
+    //const [categoryState] = useState(category)
     const [mangaListState, setMangaListState] = useState<ITrendingMangaApp[]>([])
     const heading = getViewAllCategoryHeading(category!);
     const [searchText, setSearchText] = useState("");
 
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [recordsPerPage] = useState(15);
+
     useEffect(() => {
         setMangaListState(getHomeCarouselState(category!))
+        //setPageGroups((currentPageGroups) => { currentPageGroups = splitArrayIntoGroups(getHomeCarouselState(category!), 12) })
 
-    }, [])
+    }, [category])
+
+    // const indexOfLastRecord = currentPage * recordsPerPage;
+    // const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+    // const currentPageMangas = mangaListState.slice(indexOfFirstRecord, indexOfLastRecord);
+    // const nPages = Math.ceil(mangaListState.length / recordsPerPage)
+
 
     return (
         <div className="bg-light-primary text-light-secondary dark:bg-dark-primary dark:text-dark-secondary h-full flex flex-col gap-4">
             <NavBar previousPage="Home" />
-            <p className="place-self-center text-2xl">
+            <p className="place-self-center text-2xl mt-20">
                 {heading}
             </p>
             <div className="w-fit h-fit place-self-center mb-4">
