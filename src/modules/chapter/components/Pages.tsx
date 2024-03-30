@@ -10,6 +10,7 @@ const Pages = ({ pages, chapterID }: IPagesProps) => {
         const handleScroll = () => {
             const currentPosition = window.scrollY;
             useMangaStore.setState({ scrollPosition: { chapterID: chapterID, position: currentPosition } });
+            window.scrollTo(0, scrollPosition.position)
         };
 
         window.addEventListener("scroll", handleScroll);
