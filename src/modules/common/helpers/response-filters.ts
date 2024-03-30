@@ -1,5 +1,5 @@
 import useMangaStore from '../stores/store';
-import { IChaptersAPIResponse, IComicAPIResponse, ITopComicsAPIResponse } from '../types/api-types';
+import { IChaptersAPIResponse, IComicAPIResponse, IGenreListAPIResponse, ITopComicsAPIResponse } from '../types/api-types';
 import { ISelectedChapter, ISelectedManga, ITrendingMangaApp } from '../types/app-types';
 import { IChapter, INews, IRank } from '../types/subtypes';
 
@@ -46,7 +46,8 @@ export const carouselFilter = (apiResponse: ITopComicsAPIResponse, category: str
             {
                 if (!(apiResponse && apiResponse.news && apiResponse.news?.length > 0))
                     return []
-                const newMangaListState: ITrendingMangaApp[] = apiResponse.news.map((manga: INews) => {
+                const filterednewMangaListState = apiResponse.news.filter((manga: INews) => { return manga.content_rating === "safe" })
+                const newMangaListState: ITrendingMangaApp[] = filterednewMangaListState.map((manga: INews) => {
                     return {
                         slug: manga.slug,
                         title: manga.title,
@@ -62,7 +63,8 @@ export const carouselFilter = (apiResponse: ITopComicsAPIResponse, category: str
             {
                 if (!(apiResponse && apiResponse.topFollowComics && apiResponse.topFollowComics["7"] && apiResponse?.topFollowComics["7"]?.length > 0))
                     return []
-                const newMangaListState: ITrendingMangaApp[] = apiResponse.topFollowComics[7].map((manga: INews) => {
+                const filterednewMangaListState = apiResponse.topFollowComics[7].filter((manga: INews) => { return manga.content_rating === "safe" })
+                const newMangaListState: ITrendingMangaApp[] = filterednewMangaListState.map((manga: INews) => {
                     return {
                         slug: manga.slug,
                         title: manga.title,
@@ -78,7 +80,8 @@ export const carouselFilter = (apiResponse: ITopComicsAPIResponse, category: str
             {
                 if (!(apiResponse && apiResponse.rank && apiResponse.rank?.length > 0))
                     return []
-                const newMangaListState: ITrendingMangaApp[] = apiResponse.rank.map((manga: IRank) => {
+                const filterednewMangaListState = apiResponse.rank.filter((manga: IRank) => { return manga.content_rating === "safe" })
+                const newMangaListState: ITrendingMangaApp[] = filterednewMangaListState.map((manga: IRank) => {
                     return {
                         slug: manga.slug,
                         title: manga.title ?? "",
@@ -97,3 +100,13 @@ export const carouselFilter = (apiResponse: ITopComicsAPIResponse, category: str
     }
 
 }
+
+export const splitArrayIntoGroups = (array: IGenreListAPIResponse[], chunkSize = 10) => {
+    const result = [];
+    for (let i = 0; i < array.length; i += chunkSize) {
+        const chunk = array.slice(i, i + chunkSize);
+        result.push(chunk);
+    }
+    return result;
+}
+
