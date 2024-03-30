@@ -1,4 +1,4 @@
-import { IChapterInfoAPIResponse, IChaptersAPIResponse, IComicAPIResponse, ITopComicsAPIResponse } from "../types/api-types";
+import { IChapterInfoAPIResponse, IChaptersAPIResponse, IComicAPIResponse, IGenreListAPIResponse, ITopComicsAPIResponse } from "../types/api-types";
 
 const baseUrl = 'https://api.comick.io';
 
@@ -33,3 +33,36 @@ export const fetchChapterInfo = async (hid: string): Promise<IChapterInfoAPIResp
     }
     return response.json();
 };
+
+export const fetchAllGenres = async (): Promise<IGenreListAPIResponse[]> => {
+    const response = await fetch(`${baseUrl}/genre/`);
+    if (!response.ok) {
+        throw new Error('Network call failed');
+    }
+    return response.json();
+};
+
+export const fetchSearchResults = async (searchQuery: string): Promise<ITopComicsAPIResponse> => {
+    const response = await fetch(`${baseUrl}/v1.0/search/?type=comic&q=${searchQuery}&t=false`);
+    if (!response.ok) {
+        throw new Error('Network call failed');
+    }
+    return response.json();
+}
+
+export const fetchGenreFilterResults = async (genres: string[]): Promise<ITopComicsAPIResponse> => {
+    console.log(genres)
+    const response = await fetch(`${baseUrl}/v1.0/search/?type=comic&genre=${genres.join(',')}&t=false`);
+    if (!response.ok) {
+        throw new Error('Network call failed');
+    }
+    return response.json();
+}
+
+export const fetchStatusFilterResults = async (status: number): Promise<ITopComicsAPIResponse> => {
+    const response = await fetch(`${baseUrl}/v1.0/search/?type=comic&status=${status}&t=false`);
+    if (!response.ok) {
+        throw new Error('Network call failed');
+    }
+    return response.json();
+}
