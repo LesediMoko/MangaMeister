@@ -1,3 +1,4 @@
+import { IGenreListAPIResponse } from "./api-types";
 import { IArtist, IAuthor, IMDImages } from "./subtypes";
 
 export interface ISelectedManga {
@@ -62,7 +63,11 @@ export interface MangaReaderState {
     selectedManga: ISelectedManga | null;
     selectedChapter: ISelectedChapter | null;
     newMangas: ITrendingMangaApp[];
-    popularMangas: ITrendingMangaApp[]
-    topRankedMangas: ITrendingMangaApp[]
+    popularMangas: ITrendingMangaApp[];
+    topRankedMangas: ITrendingMangaApp[];
+    genreList: IGenreListAPIResponse[];
+    selectedStatus: number,
+    selectedFilterType: "" | "genre" | "status",
+    selectedGenres: string[];
     scrollPosition: { chapterID: string, position: number };
 }
