@@ -26,7 +26,7 @@ const Pages = ({ pages, chapterID }: IPagesProps) => {
 
         <div className="overflow-y-scroll flex flex-col place-self-center md:w-1/2 md:mr-[25%] md:ml-[25%]">
             {pages.reverse().map((page) => { return (<img key={page.b2key} src={`${baseImageUrl}/${page.b2key}`} className={`w-full h-[${page.h}px]`}></img>) })}
-            <h2>The End!</h2>
+            <div className="h-svh flex-col place-content-center text-4xl">fin.</div>
         </div>
     )
 
