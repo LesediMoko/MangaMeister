@@ -5,7 +5,7 @@ import ListofAllItems from "./ListofAllItems";
 import { useParams } from "react-router-dom";
 import { ITrendingMangaApp } from "../common/types/app-types";
 import NavBar from "../common/components/NavBar";
-import Pagination from "./Pagination";
+import Pagination from "./../common/components/Pagination";
 
 
 const ViewAll = () => {
