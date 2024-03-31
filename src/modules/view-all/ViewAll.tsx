@@ -26,7 +26,7 @@ const ViewAll = () => {
     const currentPageMangas = mangaListState.slice(indexOfFirstRecord, indexOfLastRecord);
 
     return (
-        <div className="bg-light-primary text-light-secondary dark:bg-dark-primary dark:text-dark-secondary h-full flex flex-col gap-4">
+        <div className="bg-light-primary text-light-secondary dark:bg-dark-primary dark:text-dark-secondary min-h-screen max-h-full flex flex-col gap-4">
             <NavBar previousPage="Home" />
             <p className="place-self-center text-2xl mt-20">
                 {heading}
@@ -51,6 +51,7 @@ const ViewAll = () => {
                 </div>
             </MagicMotion>
             <Pagination totalMangas={mangaListState.length} mangasPerPage={mangasPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage} />
+            <div className="w-full mt-10"></div>
         </div>
     );
 }

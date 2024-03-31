@@ -37,7 +37,7 @@ const Chapter = () => {
             useMangaStore.setState({ selectedChapter: oldChapterState })
             return (
                 useMangaStore.getState().selectedChapter &&
-                <div className="bg-light-primary text-light-secondary dark:bg-dark-primary dark:text-dark-secondary">
+                <div className="bg-light-primary text-light-secondary dark:bg-dark-primary dark:text-dark-secondary min-h-screen max-h-full overflow-y-scroll">
                     <motion.div initial="hidden" whileInView="visible" style={{ scaleX }} className="fixed top-16 left-0 right-0 bg-light-secondary dark:bg-dark-primary origin-left h-2 z-10" viewport={{ root: pagesRef }} />
                     <div className="flex flex-col gap-4" ref={pagesRef}>
                         <NavBar previousPage={useMangaStore.getState().selectedManga!.title} />

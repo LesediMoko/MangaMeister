@@ -31,7 +31,7 @@ const HomeCarousel = ({ category }: { category: string }) => {
                 <p>{heading}</p>
                 <Link to={`view-all/${category}`} state={{ previousPage: "Home" }} ><p>...</p></Link>
             </div>
-            <div className="carousel gap-2 mb-5">
+            <div className={`carousel gap-2 ${category == "rank" ? "mb-20" : "mb-5"}`}>
                 {getHomeCarouselState(category).slice(0, 8).map((manga) => {
                     return (<HomeCarouselList coverImage={manga.coverImage} slug={manga.slug} title={manga.title} key={manga.slug} />)
                 })}

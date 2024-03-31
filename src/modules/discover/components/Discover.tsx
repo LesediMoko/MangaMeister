@@ -25,7 +25,7 @@ const Discover = () => {
 
         return (
 
-            <div className="flex flex-col bg-light-primary text-light-secondary dark:bg-dark-primary dark:text-dark-secondary gap-4">
+            <div className="flex flex-col bg-light-primary text-light-secondary dark:bg-dark-primary dark:text-dark-secondary gap-4 min-h-screen max-h-full overflow-y-scroll">
                 <h1 className="place-self-center text-3xl mt-4">Discover</h1>
                 <Search />
                 <OptionAccordion />
