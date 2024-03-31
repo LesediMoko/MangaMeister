@@ -21,7 +21,7 @@ const Pages = ({ pages, chapterID }: IPagesProps) => {
     }, [useMangaStore.getState().scrollPosition, chapterID]);
 
     const baseImageUrl = useMangaStore.getState().imageUrlPrefix
-    console.log(useMangaStore.getState().scrollPosition)
+
     return (
 
         <div className="overflow-y-scroll flex flex-col place-self-center md:w-1/2 md:mr-[25%] md:ml-[25%]">

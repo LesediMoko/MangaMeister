@@ -51,7 +51,7 @@ export const fetchSearchResults = async (searchQuery: string): Promise<ITopComic
 }
 
 export const fetchGenreFilterResults = async (genres: string[]): Promise<ITopComicsAPIResponse> => {
-    console.log(genres)
+
     const response = await fetch(`${baseUrl}/v1.0/search/?type=comic&genre=${genres.join(',')}&t=false`);
     if (!response.ok) {
         throw new Error('Network call failed');

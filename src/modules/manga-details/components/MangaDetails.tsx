@@ -16,7 +16,7 @@ const MangaDetails = () => {
     const { selectedSlug } = useParams()
     const { state } = useLocation()
     const previousPage = state.previousPage
-    console.log(window.location.pathname)
+
     const { isPending: isPendingComic, error: errorComic, data: comicInfo } = useQuery({
         queryKey: ['fetchComicInfo', selectedSlug],
         queryFn: () => fetchComicInfo(selectedSlug ?? ''),
