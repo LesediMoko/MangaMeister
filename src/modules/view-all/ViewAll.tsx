@@ -5,29 +5,25 @@ import ListofAllItems from "./ListofAllItems";
 import { useParams } from "react-router-dom";
 import { ITrendingMangaApp } from "../common/types/app-types";
 import NavBar from "../common/components/NavBar";
+import Pagination from "./Pagination";
 
 
 const ViewAll = () => {
     const { category } = useParams()
-    //const [categoryState] = useState(category)
     const [mangaListState, setMangaListState] = useState<ITrendingMangaApp[]>([])
     const heading = getViewAllCategoryHeading(category!);
     const [searchText, setSearchText] = useState("");
 
-    // const [currentPage, setCurrentPage] = useState(1);
-    // const [recordsPerPage] = useState(15);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [mangasPerPage] = useState(12);
 
     useEffect(() => {
         setMangaListState(getHomeCarouselState(category!))
-        //setPageGroups((currentPageGroups) => { currentPageGroups = splitArrayIntoGroups(getHomeCarouselState(category!), 12) })
-
     }, [category])
 
-    // const indexOfLastRecord = currentPage * recordsPerPage;
-    // const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-    // const currentPageMangas = mangaListState.slice(indexOfFirstRecord, indexOfLastRecord);
-    // const nPages = Math.ceil(mangaListState.length / recordsPerPage)
-
+    const indexOfLastRecord = currentPage * mangasPerPage;
+    const indexOfFirstRecord = indexOfLastRecord - mangasPerPage;
+    const currentPageMangas = mangaListState.slice(indexOfFirstRecord, indexOfLastRecord);
 
     return (
         <div className="bg-light-primary text-light-secondary dark:bg-dark-primary dark:text-dark-secondary h-full flex flex-col gap-4">
@@ -43,7 +39,7 @@ const ViewAll = () => {
             </div>
             <MagicMotion>
                 <div className="flex flex-row flex-wrap w-full gap-2 justify-evenly">
-                    {mangaListState.slice(0, 12)
+                    {currentPageMangas
                         .filter(({ title }) => title
                             .toLowerCase()
                             .trim()
@@ -54,6 +50,7 @@ const ViewAll = () => {
                         ))}
                 </div>
             </MagicMotion>
+            <Pagination totalMangas={mangaListState.length} mangasPerPage={mangasPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage} />
         </div>
     );
 }
