@@ -10,6 +10,7 @@ const Pages = ({ pages, chapterID }: IPagesProps) => {
         const handleScroll = () => {
             const currentPosition = window.scrollY;
             useMangaStore.setState({ scrollPosition: { chapterID: chapterID, position: currentPosition } });
+            window.scrollTo(0, scrollPosition.position)
         };
 
         window.addEventListener("scroll", handleScroll);
@@ -20,12 +21,12 @@ const Pages = ({ pages, chapterID }: IPagesProps) => {
     }, [useMangaStore.getState().scrollPosition, chapterID]);
 
     const baseImageUrl = useMangaStore.getState().imageUrlPrefix
-    console.log(useMangaStore.getState().scrollPosition)
+
     return (
 
         <div className="overflow-y-scroll flex flex-col place-self-center md:w-1/2 md:mr-[25%] md:ml-[25%]">
-            {pages.reverse().map((page) => { return (<img key={page.b2key} src={`${baseImageUrl}/${page.b2key}`} className={`w-full h-[${page.h}px]`}></img>) })}
-            <h2>The End!</h2>
+            {pages.reverse().map((page) => { return (<img loading="lazy" key={page.b2key} src={`${baseImageUrl}/${page.b2key}`} className={`w-full h-[${page.h}px]`}></img>) })}
+            <div className="h-svh flex-col place-content-center text-4xl">fin.</div>
         </div>
     )
 

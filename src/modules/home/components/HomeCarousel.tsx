@@ -4,9 +4,10 @@ import { getCarouselDetails, getHomeCarouselState, setHomeCarouselState } from "
 import HomeCarouselList from "./HomeCarouselList"
 import { carouselFilter } from "../../common/helpers/response-filters"
 import CarouselSkeleton from "./CarouselSkeleton"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const HomeCarousel = ({ category }: { category: string }) => {
+    const navigate = useNavigate()
     const { heading, queryKey } = getCarouselDetails(category)
     const { isPending, error, data: topComicsResponse } = useQuery({
         queryKey: [queryKey],
@@ -18,7 +19,7 @@ const HomeCarousel = ({ category }: { category: string }) => {
     }
 
     if (error) {
-        return <div>Error: {error.message}</div>
+        return navigate("/load-error")
     }
 
     if (topComicsResponse) {
@@ -28,10 +29,10 @@ const HomeCarousel = ({ category }: { category: string }) => {
     return (
         <div className="flex flex-col ml-2 mr-2">
             <div className="flex flex-row justify-between mb-2 ml-2 mr-2 text-slate-50">
-                <p>{heading}</p>
-                <Link to={`view-all/${category}`} state={{ previousPage: "Home" }} ><p>...</p></Link>
+                <p className="md:text-lg lg:text-2xl">{heading}</p>
+                <Link to={`view-all/${category}`} state={{ previousPage: "Home" }} ><p className="md:text-lg lg:text-2xl">...</p></Link>
             </div>
-            <div className="carousel gap-2 mb-5">
+            <div className={`carousel gap-2 ${category == "rank" ? "mb-20" : "mb-5"}`}>
                 {getHomeCarouselState(category).slice(0, 8).map((manga) => {
                     return (<HomeCarouselList coverImage={manga.coverImage} slug={manga.slug} title={manga.title} key={manga.slug} />)
                 })}

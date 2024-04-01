@@ -5,23 +5,30 @@ import ListofAllItems from "./ListofAllItems";
 import { useParams } from "react-router-dom";
 import { ITrendingMangaApp } from "../common/types/app-types";
 import NavBar from "../common/components/NavBar";
+import Pagination from "./../common/components/Pagination";
 
 
 const ViewAll = () => {
-    const [category] = useState(useParams()['category'])
+    const { category } = useParams()
     const [mangaListState, setMangaListState] = useState<ITrendingMangaApp[]>([])
     const heading = getViewAllCategoryHeading(category!);
     const [searchText, setSearchText] = useState("");
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [mangasPerPage] = useState(12);
+
     useEffect(() => {
         setMangaListState(getHomeCarouselState(category!))
+    }, [category])
 
-    }, [])
+    const indexOfLastRecord = currentPage * mangasPerPage;
+    const indexOfFirstRecord = indexOfLastRecord - mangasPerPage;
+    const currentPageMangas = mangaListState.slice(indexOfFirstRecord, indexOfLastRecord);
 
     return (
-        <div className="bg-light-primary text-light-secondary dark:bg-dark-primary dark:text-dark-secondary h-full flex flex-col gap-4">
+        <div className="bg-light-primary text-light-secondary dark:bg-dark-primary dark:text-dark-secondary min-h-screen max-h-full flex flex-col gap-4">
             <NavBar previousPage="Home" />
-            <p className="place-self-center text-2xl">
+            <p className="place-self-center text-2xl mt-20">
                 {heading}
             </p>
             <div className="w-fit h-fit place-self-center mb-4">
@@ -32,7 +39,7 @@ const ViewAll = () => {
             </div>
             <MagicMotion>
                 <div className="flex flex-row flex-wrap w-full gap-2 justify-evenly">
-                    {mangaListState.slice(0, 12)
+                    {currentPageMangas
                         .filter(({ title }) => title
                             .toLowerCase()
                             .trim()
@@ -43,6 +50,8 @@ const ViewAll = () => {
                         ))}
                 </div>
             </MagicMotion>
+            <Pagination totalMangas={mangaListState.length} mangasPerPage={mangasPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage} />
+            <div className="w-full mt-10"></div>
         </div>
     );
 }

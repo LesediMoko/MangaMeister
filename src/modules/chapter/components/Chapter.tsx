@@ -37,11 +37,11 @@ const Chapter = () => {
             useMangaStore.setState({ selectedChapter: oldChapterState })
             return (
                 useMangaStore.getState().selectedChapter &&
-                <div className="bg-light-primary text-light-secondary dark:bg-dark-primary dark:text-dark-secondary">
-                    <motion.div initial="hidden" whileInView="visible" style={{ scaleX }} className="fixed top-0 left-0 right-0 bg-rose-400 origin-left h-2 z-10" viewport={{ root: pagesRef }} />
+                <div className="bg-light-primary text-light-secondary dark:bg-dark-primary dark:text-dark-secondary min-h-screen max-h-full overflow-y-scroll">
+                    <motion.div initial="hidden" whileInView="visible" style={{ scaleX }} className="fixed top-16 left-0 right-0 bg-light-secondary dark:bg-dark-primary origin-left h-2 z-10" viewport={{ root: pagesRef }} />
                     <div className="flex flex-col gap-4" ref={pagesRef}>
                         <NavBar previousPage={useMangaStore.getState().selectedManga!.title} />
-                        <h1 className="place-self-center text-2xl">{useMangaStore.getState().selectedManga!.title}</h1>
+                        <h1 className="place-self-center text-2xl mt-20">{useMangaStore.getState().selectedManga!.title}</h1>
                         <div className="=flex flex-col place-content-center text-center">
                             <h2 className="place-self-center mb-12">{useMangaStore.getState().selectedChapter?.chapterNumber}. {useMangaStore.getState().selectedChapter!.title}</h2>
                             <Pages pages={useMangaStore.getState().selectedChapter!.pages!} chapterID={chapterHID!} />
