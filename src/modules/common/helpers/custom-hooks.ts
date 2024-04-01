@@ -23,21 +23,21 @@ export function useFilter(filterPayload: string[] | number | null, filterFunctio
 
 }
 
-export function useDebounce(value: string, delay: number) {
-    const [debouncedValue, setDebouncedValue] = useState(value);
+export function useDebounce(searchTerm: string, delay: number) {
+    const [debouncedSearchTerm, setDebouncedValue] = useState(searchTerm);
 
     useEffect(
         () => {
             const handler = setTimeout(() => {
-                setDebouncedValue(value);
+                setDebouncedValue(searchTerm);
             }, delay);
 
             return () => {
                 clearTimeout(handler);
             };
         },
-        [value, delay]
+        [searchTerm, delay]
     );
 
-    return debouncedValue;
+    return debouncedSearchTerm;
 }
