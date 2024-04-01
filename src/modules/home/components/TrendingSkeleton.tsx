@@ -1,7 +1,7 @@
 const TrendingSkeleton = () => {
     return (
         <div className="animate-pulse">
-            <div className="carousel carousel-end bg-slate-600 h-80 w-full mb-10">
+            <div className="carousel carousel-end bg-neutral-600 h-80 w-full mb-10">
                 <div className="carousel-item w-1/3 overflow-y-hidden">
                     <a>
                         <div className="card shadow-xl rounded-none gap-1 h-full">

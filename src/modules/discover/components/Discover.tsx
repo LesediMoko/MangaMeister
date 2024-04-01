@@ -5,6 +5,8 @@ import useMangaStore from "../../common/stores/store"
 import Search from "./Search"
 import OptionAccordion from "./OptionAccordion"
 import ResultList from "./ResultList"
+import DiscoverSkeleton from "./DiscoverSkeleton"
+import LoadErrorPage from "../../error-page/LoadErrorPage"
 
 const Discover = () => {
     const { isPending: isPendingGenre, isError, data: allGenres } = useQuery({
@@ -15,11 +17,10 @@ const Discover = () => {
 
 
     if (isError)
-        return <div>Error: {isError}</div>
+        return <LoadErrorPage />
 
     if (isPendingGenre)
-        return <div>Loading...</div>
-
+        return <DiscoverSkeleton />
     if (allGenres) {
         useMangaStore.setState({ genreList: allGenres })
 

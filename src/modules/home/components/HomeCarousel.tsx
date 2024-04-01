@@ -4,9 +4,10 @@ import { getCarouselDetails, getHomeCarouselState, setHomeCarouselState } from "
 import HomeCarouselList from "./HomeCarouselList"
 import { carouselFilter } from "../../common/helpers/response-filters"
 import CarouselSkeleton from "./CarouselSkeleton"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const HomeCarousel = ({ category }: { category: string }) => {
+    const navigate = useNavigate()
     const { heading, queryKey } = getCarouselDetails(category)
     const { isPending, error, data: topComicsResponse } = useQuery({
         queryKey: [queryKey],
@@ -18,7 +19,7 @@ const HomeCarousel = ({ category }: { category: string }) => {
     }
 
     if (error) {
-        return <div>Error: {error.message}</div>
+        return navigate("/load-error")
     }
 
     if (topComicsResponse) {
