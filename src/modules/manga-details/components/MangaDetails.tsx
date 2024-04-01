@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { ISelectedManga, ISelectedChapter } from '../../common/types/app-types';
 import { fetchChapterListInfo, fetchComicInfo } from '../../common/services/api-service';
 import useMangaStore from '../../common/stores/store';
-import { chapterListResponseFilter, comicResponseFilter } from '../../common/helpers/response-filters';
+import { chapterListResponseFilter, comicResponseFilter, getScanGroups } from '../../common/helpers/response-filters';
 import ChapterList from './ChapterList';
 import { useParams } from 'react-router';
 import NavBar from '../../common/components/NavBar';
@@ -10,35 +10,40 @@ import { useLocation } from 'react-router-dom';
 import { MdHistoryEdu } from "react-icons/md";
 import { HiOutlinePaintBrush } from "react-icons/hi2";
 import ReactMarkdown from 'react-markdown'
+import { useState } from 'react';
+import MangaDetailsSkeleton from './MangaDetailsSkeleton';
+import LoadErrorPage from '../../error-page/LoadErrorPage';
 
 
 const MangaDetails = () => {
     const { selectedSlug } = useParams()
     const { state } = useLocation()
-    const previousPage = state.previousPage
+    const previousPage = state && state?.previousPage ? state.previousPage : 'Home'
 
-    const { isPending: isPendingComic, error: errorComic, data: comicInfo } = useQuery({
+    const { isPending: isPendingComic, isError: errorComic, data: comicInfo } = useQuery({
         queryKey: ['fetchComicInfo', selectedSlug],
         queryFn: () => fetchComicInfo(selectedSlug ?? ''),
         enabled: !!selectedSlug
     })
 
+    const [selectedScans, setSelectedScans] = useState<string[]>([])
+
 
     const comicHid = comicInfo?.comic?.hid;
     const comicChapterTotal = comicInfo?.comic?.last_chapter;
 
-    const { isPending: isPendingChapterList, error: errorChapterList, data: chapterListInfo } = useQuery({
+    const { isPending: isPendingChapterList, isError: errorChapterList, data: chapterListInfo } = useQuery({
         queryKey: ['fetchChapterList', comicHid],
         queryFn: () => fetchChapterListInfo(comicHid ?? '', comicChapterTotal ?? 0),
         enabled: !!comicHid && !!comicChapterTotal
     })
 
     if (isPendingComic || isPendingChapterList) {
-        return <><NavBar previousPage={previousPage} /><div>Loading...</div></>
+        return (<MangaDetailsSkeleton />)
     }
 
     if (errorComic || errorChapterList) {
-        return <><NavBar previousPage={previousPage} /><div>Error: {String(errorComic ?? errorChapterList ?? '')}</div></>
+        return (<LoadErrorPage />)
     }
 
     const currentChapterList: ISelectedChapter[] = chapterListResponseFilter(chapterListInfo)
@@ -48,6 +53,19 @@ const MangaDetails = () => {
 
     if (useMangaStore.getState().selectedManga == null) {
         return <div>{`${currentManga.title} is not available.`}</div>
+    }
+
+    const handleCheckBoxClick = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        const checked = e.target.checked;
+
+
+        if (checked) {
+            setSelectedScans((prevValues) => [...prevValues, value]);
+        } else {
+
+            setSelectedScans((prevValues) => prevValues.filter((item) => item !== value));
+        }
     }
 
     return (
@@ -63,7 +81,7 @@ const MangaDetails = () => {
                             {useMangaStore.getState().selectedManga?.authors.map(author => (
 
 
-                                <p key={author.slug}>{`${author.name} `}&nbsp;&nbsp;</p>
+                                <p key={author.slug}>{`${author.name} `}</p>
 
                             )
                             )}
@@ -73,7 +91,7 @@ const MangaDetails = () => {
                             {useMangaStore.getState().selectedManga?.artists.map(author => (
 
 
-                                <p key={author.slug}>{`${author.name} `}&nbsp;&nbsp;</p>
+                                <p key={author.slug}>{`${author.name} `}</p>
 
                             )
                             )}
@@ -82,9 +100,18 @@ const MangaDetails = () => {
 
                         <h5 className='md:hidden'>Description</h5>
                         <ReactMarkdown className='pb-8 md:place-content-end mr-4'>{useMangaStore.getState().selectedManga?.description}</ReactMarkdown>
+                        <div className="dropdown dropdown-hover">
+                            <div tabIndex={0} role="button" className="btn m-1">Filter Scan Group</div>
+                            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                {getScanGroups().map(scanGroup => (<label className="label cursor-pointer">
+                                    <span className="label-text">{scanGroup}</span>
+                                    <input type="checkbox" value={scanGroup} checked={selectedScans.includes(scanGroup)} className="checkbox" onChange={(e) => handleCheckBoxClick(e)} />
+                                </label>))}
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <ChapterList listOfChapters={useMangaStore.getState().selectedManga!.chapterList} />
+                <ChapterList listOfChapters={useMangaStore.getState().selectedManga!.chapterList.filter(chapter => selectedScans.includes(chapter.groupName))} />
 
             </div>
         </>

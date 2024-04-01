@@ -30,6 +30,7 @@ export interface ISelectedChapter {
     coverImage?: string;
     comicHid?: string;
     pages?: IMDImages[];
+    groupName: string;
 }
 
 export interface IPagesProps {
