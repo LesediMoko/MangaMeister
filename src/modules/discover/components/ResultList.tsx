@@ -39,7 +39,7 @@ const ResultList = () => {
         const currentPageMangas = filteredData.slice(indexOfFirstRecord, indexOfLastRecord);
 
         return (
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 lg:mb-20">
                 <p className="place-self-center text-2xl mt-4">
                     Results
                 </p>
