@@ -29,8 +29,8 @@ const HomeCarousel = ({ category }: { category: string }) => {
     return (
         <div className="flex flex-col ml-2 mr-2">
             <div className="flex flex-row justify-between mb-2 ml-2 mr-2 text-slate-50">
-                <p>{heading}</p>
-                <Link to={`view-all/${category}`} state={{ previousPage: "Home" }} ><p>...</p></Link>
+                <p className="md:text-lg lg:text-2xl">{heading}</p>
+                <Link to={`view-all/${category}`} state={{ previousPage: "Home" }} ><p className="md:text-lg lg:text-2xl">...</p></Link>
             </div>
             <div className={`carousel gap-2 ${category == "rank" ? "mb-20" : "mb-5"}`}>
                 {getHomeCarouselState(category).slice(0, 8).map((manga) => {

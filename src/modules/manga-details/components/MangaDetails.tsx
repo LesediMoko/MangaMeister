@@ -103,7 +103,7 @@ const MangaDetails = () => {
                         <div className="dropdown dropdown-hover">
                             <div tabIndex={0} role="button" className="btn m-1">Filter Scan Group</div>
                             <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                                {getScanGroups().map(scanGroup => (<label className="label cursor-pointer">
+                                {getScanGroups().map(scanGroup => (<label className="label cursor-pointer" key={scanGroup}>
                                     <span className="label-text">{scanGroup}</span>
                                     <input type="checkbox" value={scanGroup} checked={selectedScans.includes(scanGroup)} className="checkbox" onChange={(e) => handleCheckBoxClick(e)} />
                                 </label>))}

@@ -6,10 +6,12 @@ const OptionAccordion = () => {
     const [isCheckedGenre, setIsCheckedGenre] = useState(false);
     const handleCheckboxChangeGenre = () => {
         setIsCheckedGenre(!isCheckedGenre);
+        setIsCheckedStatus(false);
     };
     const [isCheckedStatus, setIsCheckedStatus] = useState(false);
     const handleCheckboxChangeStatus = () => {
         setIsCheckedStatus(!isCheckedStatus);
+        setIsCheckedGenre(false);
     };
 
 

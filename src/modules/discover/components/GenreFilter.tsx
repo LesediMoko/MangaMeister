@@ -36,7 +36,7 @@ const GenreFilter = () => {
                         {genreArrayGroups.map((genreGroup, index) => (
                             <div key={index} className="carousel-item flex flex-row flex-wrap w-full">
                                 {genreGroup.map((genre) => (
-                                    <label key={genre.slug} className="label cursor-pointer w-1/2 justify-end gap-2 flex-row-reverse">
+                                    <label key={genre.slug} className="label cursor-pointer w-1/2 lg:w-1/4 md:w-1/3 justify-end gap-2 flex-row-reverse">
                                         <span className="label-text">{genre.name}</span>
                                         <Field type="checkbox" name="selectedOptions" value={genre.slug} as="input" onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                             const value = e.target.value;
