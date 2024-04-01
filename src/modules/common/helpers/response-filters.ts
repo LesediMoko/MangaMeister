@@ -33,6 +33,7 @@ export const chapterListResponseFilter = (apiResponse: IChaptersAPIResponse) => 
             releaseDate: currentChapter.created_at.slice(0, 11),
             title: currentChapter.title,
             upCount: currentChapter.up_count,
+            groupName: currentChapter.group_name && currentChapter.group_name[0] ? currentChapter.group_name[0] : "",
 
         }
         return chapterListItem
@@ -108,5 +109,19 @@ export const splitArrayIntoGroups = (array: IGenreListAPIResponse[], chunkSize =
         result.push(chunk);
     }
     return result;
+}
+
+export const getScanGroups = (): string[] => {
+    const allScans: string[] = [];
+    const selectedManga = useMangaStore.getState().selectedManga;
+    if (!selectedManga || !selectedManga.chapterList) {
+        return [];
+    }
+    for (const chapter of selectedManga.chapterList) {
+        if (chapter.groupName) {
+            allScans.push(chapter.groupName);
+        }
+    }
+    return Array.from(new Set(allScans));
 }
 
