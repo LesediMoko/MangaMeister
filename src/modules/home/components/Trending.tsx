@@ -5,6 +5,7 @@ import useMangaStore from '../../common/stores/store'
 import { fetchTrendingMangas } from "../../common/services/api-service";
 import TrendingList from "./TrendingList";
 import TrendingSkeleton from "./TrendingSkeleton";
+import React from "react";
 
 function Trending() {
 
@@ -13,6 +14,9 @@ function Trending() {
         queryFn: fetchTrendingMangas
     })
 
+
+
+
     if (isPending) {
         return <TrendingSkeleton />
     }
@@ -20,6 +24,8 @@ function Trending() {
     if (error) {
         return <div>Error: {error.message}</div>
     }
+
+    
 
     if (topComicsResponse) {
         const trendingMangas: ITrendingMangaApp[] = topComicsResponse.trending[30].map((manga: ITrendingManga) => {
@@ -33,11 +39,15 @@ function Trending() {
         useMangaStore.setState({ trendingMangas: trendingMangas })
     }
 
+
     return (
         <div className="carousel carousel-end bg-black h-80 w-full mb-10 shadow-md shadow-light-secondary">
             {useMangaStore.getState().trendingMangas.map((manga: ITrendingMangaApp) => {
                 return (
-                    <TrendingList slug={manga.slug} title={manga.title} coverImage={manga.coverImage} key={manga.slug} />
+                    
+                    <TrendingList slug={manga.slug} title={manga.title} coverImage={manga.coverImage} key={manga.slug} firstSlug={topComicsResponse.trending[30][0].slug} />
+                    
+                    
                 )
             }
             )}
@@ -47,3 +57,7 @@ function Trending() {
 
 }
 export default Trending
+
+//variants={ScrollHintAnimation}
+//initial="initial"
+//animate="animate" whileInView="animate"

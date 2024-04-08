@@ -18,6 +18,7 @@ export interface ITrendingMangaApp {
     slug: string;
     title: string;
     coverImage: string;
+    firstSlug?: string;
 }
 
 export interface ISelectedChapter {
