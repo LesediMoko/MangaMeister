@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 
 const ResultListItem = ({ title, coverImage, slug }: { title: string; coverImage: string, slug: string }) => {

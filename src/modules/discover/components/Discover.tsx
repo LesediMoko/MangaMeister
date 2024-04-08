@@ -7,6 +7,7 @@ import OptionAccordion from "./OptionAccordion"
 import ResultList from "./ResultList"
 import DiscoverSkeleton from "./DiscoverSkeleton"
 import LoadErrorPage from "../../error-page/LoadErrorPage"
+import React from "react"
 
 const Discover = () => {
     const { isPending: isPendingGenre, isError, data: allGenres } = useQuery({

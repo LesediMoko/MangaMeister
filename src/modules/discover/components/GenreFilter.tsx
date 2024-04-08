@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from 'formik';
 import * as Yup from "yup";
-import { FiSearch } from "react-icons/fi";
 import useMangaStore from "../../common/stores/store";
 import { splitArrayIntoGroups } from "../../common/helpers/response-filters";
 import { IGenreListAPIResponse } from "../../common/types/api-types";
+import { IoFilterSharp } from "react-icons/io5";
 
 const GenreFilter = () => {
     const [genreArrayGroups] = useState<IGenreListAPIResponse[][]>(splitArrayIntoGroups(useMangaStore.getState().genreList));
@@ -22,6 +22,13 @@ const GenreFilter = () => {
         useMangaStore.setState({ selectedGenres: values.selectedOptions })
         useMangaStore.setState({ selectedFilterType: "genre" })
 
+    }
+
+    const clearGenreHandler = (values: { selectedOptions: string[] }) => {
+        console.log(useMangaStore.getState().selectedGenres)
+        useMangaStore.setState({ selectedGenres: [] })
+        values.selectedOptions = []
+        console.log(useMangaStore.getState().selectedGenres)
     }
 
     return (
@@ -63,9 +70,10 @@ const GenreFilter = () => {
                             <div>{errors.selectedOptions}</div>
                         ) : null}
 
-                        <button className="btn place-self-center w-1/2" type="submit">
-                            Search <FiSearch />
+                        <button className={`btn btn-accent place-self-center w-1/2 ${values.selectedOptions.length > 0 && "shadow-light-secondary shadow-sm"}`} type="submit" disabled={values.selectedOptions.length == 0}>
+                            Filter <IoFilterSharp />
                         </button>
+                        <button className={`btn btn-error ${values.selectedOptions.length > 0 && "shadow-light-secondary shadow-sm"}`} onClick={()=> clearGenreHandler(values)} disabled={values.selectedOptions.length == 0}>Clear</button>
                     </div>
                 </Form>
             )}
