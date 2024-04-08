@@ -1,5 +1,5 @@
 import { IGenreListAPIResponse } from "./api-types";
-import { IArtist, IAuthor, IMDImages } from "./subtypes";
+import { IAdjacentChapter, IArtist, IAuthor, IMDImages } from "./subtypes";
 
 export interface ISelectedManga {
     slug: string;
@@ -36,6 +36,8 @@ export interface ISelectedChapter {
 export interface IPagesProps {
     pages: IMDImages[]
     chapterID: string;
+    nextChapter: IAdjacentChapter | null;
+    prevChapter: IAdjacentChapter | null;
 }
 
 export interface IMangaDetailsProps {
