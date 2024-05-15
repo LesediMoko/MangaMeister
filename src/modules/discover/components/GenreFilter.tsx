@@ -26,10 +26,8 @@ const GenreFilter = () => {
     }
 
     const clearGenreHandler = (values: { selectedOptions: string[] }) => {
-        console.log(useMangaStore.getState().selectedGenres)
         useMangaStore.setState({ selectedGenres: [] })
         values.selectedOptions = []
-        console.log(useMangaStore.getState().selectedGenres)
     }
 
 
