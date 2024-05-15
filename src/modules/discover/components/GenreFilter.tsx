@@ -32,6 +32,8 @@ const GenreFilter = () => {
         console.log(useMangaStore.getState().selectedGenres)
     }
 
+
+
     return (
         <Formik
             initialValues={{ selectedOptions: useMangaStore.getState().selectedGenres }}
