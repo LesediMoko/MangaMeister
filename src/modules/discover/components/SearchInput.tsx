@@ -1,6 +1,7 @@
 import { SetStateAction } from "react";
 import SearchDropdown from "./SearchDropdown";
 import { useSearchContext } from "./SearchProvider";
+import React from "react";
 
 const SearchInput = () => {
     const searchContext = useSearchContext();
@@ -14,7 +15,7 @@ const SearchInput = () => {
         <>
             <input
                 type="text"
-                placeholder="Type here"
+                placeholder="Search"
                 className="place-self-center input input-bordered w-full max-w-xs"
 
                 onChange={handleSearchChange}

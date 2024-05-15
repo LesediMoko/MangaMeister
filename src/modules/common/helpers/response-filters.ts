@@ -103,7 +103,7 @@ export const carouselFilter = (apiResponse: ITopComicsAPIResponse, category: str
 }
 
 export const splitArrayIntoGroups = (array: IGenreListAPIResponse[], chunkSize = 10) => {
-    const result = [];
+    const result: IGenreListAPIResponse[][] = [];
     for (let i = 0; i < array.length; i += chunkSize) {
         const chunk = array.slice(i, i + chunkSize);
         result.push(chunk);

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { IChapterListProps } from '../../common/types/app-types'
 import Votes from './Votes'
+import React from 'react'
 
 const ChapterList = ({ listOfChapters }: IChapterListProps) => {
     return (

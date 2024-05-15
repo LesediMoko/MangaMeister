@@ -5,6 +5,7 @@ import useMangaStore from "../../common/stores/store";
 import { MagicMotion } from "react-magic-motion";
 import ResultListItem from "./ResultListItem";
 import Pagination from "../../common/components/Pagination";
+import React from "react";
 
 const ResultList = () => {
     const { apiRequest, payload } = getFilterRequestAndPayload(useMangaStore.getState().selectedFilterType)!
@@ -13,18 +14,12 @@ const ResultList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [mangasPerPage] = useState(3);
 
-    const [, forceUpdate] = useState({});
+    const [selectedGenres] = useState(useMangaStore().selectedGenres);
+    const [selectedStatus] = useState(useMangaStore().selectedStatus);
+    const [selectedFilterType] = useState(useMangaStore().selectedFilterType);
 
     useEffect(() => {
-        if (payload != -1 || payload?.toString() != "") {
-            const unsubscribe = useMangaStore.subscribe(() => {
-
-                forceUpdate({});
-            });
-
-            return () => unsubscribe();
-        }
-    }, [useMangaStore.getState().selectedGenres, useMangaStore.getState().selectedStatus, useMangaStore.getState().selectedFilterType]);
+    }, [selectedGenres, selectedStatus, selectedFilterType]);
 
     if (isPending)
         return <div>Loading...</div>

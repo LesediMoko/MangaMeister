@@ -13,6 +13,7 @@ import ReactMarkdown from 'react-markdown'
 import { useState } from 'react';
 import MangaDetailsSkeleton from './MangaDetailsSkeleton';
 import LoadErrorPage from '../../error-page/LoadErrorPage';
+import React from 'react';
 
 
 const MangaDetails = () => {

@@ -6,6 +6,7 @@ import useMangaStore from "../../common/stores/store"
 import { motion, useScroll, useSpring } from "framer-motion"
 import { useRef } from "react"
 import NavBar from "../../common/components/NavBar"
+import React from "react"
 
 const Chapter = () => {
     const { scrollYProgress } = useScroll();
@@ -44,7 +45,7 @@ const Chapter = () => {
                         <h1 className="place-self-center text-2xl mt-20">{useMangaStore.getState().selectedManga!.title}</h1>
                         <div className="=flex flex-col place-content-center text-center">
                             <h2 className="place-self-center mb-12">{useMangaStore.getState().selectedChapter?.chapterNumber}. {useMangaStore.getState().selectedChapter!.title}</h2>
-                            <Pages pages={useMangaStore.getState().selectedChapter!.pages!} chapterID={chapterHID!} />
+                            <Pages pages={useMangaStore.getState().selectedChapter!.pages!} chapterID={chapterHID!} nextChapter={chapterInfo.next} prevChapter={chapterInfo.prev} />
                         </div>
                     </div>
                 </div>
