@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Formik, Form, Field } from 'formik';
 import * as Yup from "yup";
 import useMangaStore from "../../common/stores/store";

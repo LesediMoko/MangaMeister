@@ -1,7 +1,6 @@
 import { SetStateAction } from "react";
 import SearchDropdown from "./SearchDropdown";
 import { useSearchContext } from "./SearchProvider";
-import React from "react";
 
 const SearchInput = () => {
     const searchContext = useSearchContext();

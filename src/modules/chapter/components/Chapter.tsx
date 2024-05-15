@@ -6,7 +6,6 @@ import useMangaStore from "../../common/stores/store"
 import { motion, useScroll, useSpring } from "framer-motion"
 import { useRef } from "react"
 import NavBar from "../../common/components/NavBar"
-import React from "react"
 
 const Chapter = () => {
     const { scrollYProgress } = useScroll();

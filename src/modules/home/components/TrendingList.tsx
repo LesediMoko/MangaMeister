@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { ITrendingMangaApp } from "../../common/types/app-types";
-import React from "react";
 import { motion } from "framer-motion";
 
 

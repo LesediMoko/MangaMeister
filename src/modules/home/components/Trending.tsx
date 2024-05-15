@@ -5,7 +5,6 @@ import useMangaStore from '../../common/stores/store'
 import { fetchTrendingMangas } from "../../common/services/api-service";
 import TrendingList from "./TrendingList";
 import TrendingSkeleton from "./TrendingSkeleton";
-import React from "react";
 
 function Trending() {
 

@@ -5,7 +5,6 @@ import useMangaStore from "../../common/stores/store";
 import { MagicMotion } from "react-magic-motion";
 import ResultListItem from "./ResultListItem";
 import Pagination from "../../common/components/Pagination";
-import React from "react";
 
 const ResultList = () => {
     const { apiRequest, payload } = getFilterRequestAndPayload(useMangaStore.getState().selectedFilterType)!

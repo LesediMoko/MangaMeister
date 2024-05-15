@@ -1,4 +1,3 @@
-import React from "react";
 import useMangaStore from "../../common/stores/store";
 import { IPagesProps } from "../../common/types/app-types";
 import { useEffect } from "react";
