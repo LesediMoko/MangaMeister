@@ -8,14 +8,14 @@ const ChapterList = ({ listOfChapters }: IChapterListProps) => {
             <li className="menu-title">Chapters: </li>
             {listOfChapters.map((chapter) => {
                 return chapter.title ?
-                    (<Link to={`${chapter.hid}`}>
+                    (<Link to={`${chapter.hid}`} key={chapter.hid}>
                         <li className="p-2" key={chapter.hid}>
                             <span>
                                 {`${chapter.chapterNumber} - ${chapter.title}`}
                                 <Votes upVotes={chapter.upCount} />
                             </span>
                         </li>
-                    </Link>) : (<Link to={`${chapter.hid}`}>
+                    </Link>) : (<Link to={`${chapter.hid}`} key={chapter.hid}>
                         <li className="p-2" key={chapter.hid}>
                             <span>
                                 {`Chapter ${chapter.chapterNumber}`}
