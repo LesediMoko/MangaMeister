@@ -6,6 +6,7 @@ import useMangaStore from "../../common/stores/store"
 import { motion, useScroll, useSpring } from "framer-motion"
 import { useRef } from "react"
 import NavBar from "../../common/components/NavBar"
+import { useLocation } from "react-router-dom"
 
 const Chapter = () => {
     const { scrollYProgress } = useScroll();
@@ -21,7 +22,9 @@ const Chapter = () => {
         queryFn: () => fetchChapterInfo(chapterHID ?? ''),
         enabled: !!chapterHID
     })
+    const location = useLocation().state
     const allChapters = useMangaStore.getState().chapters
+
 
     if (errorChapterInfo)
         return "Error"
@@ -40,7 +43,7 @@ const Chapter = () => {
                 <div className="bg-light-primary text-light-secondary dark:bg-dark-primary dark:text-dark-secondary min-h-screen max-h-full overflow-y-scroll">
                     <motion.div initial="hidden" whileInView="visible" style={{ scaleX }} className="fixed top-16 left-0 right-0 bg-light-secondary dark:bg-dark-primary origin-left h-2 z-10" viewport={{ root: pagesRef }} />
                     <div className="flex flex-col gap-4" ref={pagesRef}>
-                        <NavBar previousPage={useMangaStore.getState().selectedManga!.title} />
+                        <NavBar previousPage={location ? location.previousPage : useMangaStore.getState().selectedManga!.title} />
                         <h1 className="place-self-center text-2xl mt-20">{useMangaStore.getState().selectedManga!.title}</h1>
                         <div className="=flex flex-col place-content-center text-center">
                             <h2 className="place-self-center mb-12">{useMangaStore.getState().selectedChapter?.chapterNumber}. {useMangaStore.getState().selectedChapter!.title}</h2>
