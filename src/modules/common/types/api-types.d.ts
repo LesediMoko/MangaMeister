@@ -74,7 +74,7 @@ export interface ISearchAPIResponse {
     bayesian_rating: number | null;
     rating_count: number;
     follow_count: number;
-    desc: string;
+    desc: string?;
     status: number;
     last_chapter: number;
     translation_completed: boolean;
