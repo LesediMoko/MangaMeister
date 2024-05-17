@@ -28,22 +28,29 @@ const MangaDetails = () => {
     })
 
     const [selectedScans, setSelectedScans] = useState<string[]>([])
+    const [initialRender, setInitialRender] = useState(false)
 
 
     const comicHid = comicInfo?.comic?.hid;
     const comicChapterTotal = comicInfo?.comic?.last_chapter;
+    console.log('comicHid', comicHid)
 
     const { isPending: isPendingChapterList, isError: errorChapterList, data: chapterListInfo } = useQuery({
         queryKey: ['fetchChapterList', comicHid],
         queryFn: () => fetchChapterListInfo(comicHid ?? '', comicChapterTotal ?? 0),
-        enabled: !!comicHid && !!comicChapterTotal
+        enabled: !!comicHid 
     })
+  
 
     if (isPendingComic || isPendingChapterList) {
         return (<MangaDetailsSkeleton />)
     }
 
+    
+    
+
     if (errorComic || errorChapterList) {
+        console.log('inside error')
         return (<LoadErrorPage />)
     }
 
@@ -51,6 +58,11 @@ const MangaDetails = () => {
     const currentManga: ISelectedManga = comicResponseFilter(comicInfo, selectedSlug!, currentChapterList);
     useMangaStore.setState({ selectedManga: currentManga })
     useMangaStore.setState({ chapters: currentChapterList })
+
+    if (selectedScans.length === 0 && !initialRender) {
+        setSelectedScans([getScanGroups()[0]])
+        setInitialRender(true)
+    }
 
     if (useMangaStore.getState().selectedManga == null) {
         return <div>{`${currentManga.title} is not available.`}</div>
