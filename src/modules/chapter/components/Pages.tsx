@@ -1,20 +1,25 @@
 import useMangaStore from "../../common/stores/store";
 import { IPagesProps } from "../../common/types/app-types";
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams,  } from "react-router";
 
 const Pages = ({ pages, chapterID, nextChapter, prevChapter }: IPagesProps) => {
     const scrollPosition = useMangaStore(state => state.scrollPosition);
-    window.scrollTo(0, scrollPosition.position);
     const {selectedSlug} = useParams()
     const navigate = useNavigate()
-
+    
+    useEffect(() => {
+        window.scrollTo(0, scrollPosition.position);
+        if (scrollPosition.chapterID !== chapterID) {
+            useMangaStore.setState({ scrollPosition: { chapterID: chapterID, position: 0 } });
+            console.log("scroll position set to 0 in if statement")
+        }
+    }, [])
 
     useEffect(() => {
         const handleScroll = () => {
             const currentPosition = window.scrollY;
             useMangaStore.setState({ scrollPosition: { chapterID: chapterID, position: currentPosition } });
-            window.scrollTo(0, scrollPosition.position)
         };
 
         window.addEventListener("scroll", handleScroll);
@@ -22,7 +27,7 @@ const Pages = ({ pages, chapterID, nextChapter, prevChapter }: IPagesProps) => {
         return () => {
             window.removeEventListener("scroll", handleScroll);
         };
-    }, [useMangaStore.getState().scrollPosition, chapterID]);
+    }, [useMangaStore.getState().scrollPosition.position, chapterID]);
 
     const goToNextChapter = () => {
         navigate(`/view-manga/${selectedSlug}/${nextChapter?.hid}`)
