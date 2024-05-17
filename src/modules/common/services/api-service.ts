@@ -11,7 +11,7 @@ export const fetchTrendingMangas = async (): Promise<ITopComicsAPIResponse> => {
 };
 
 export const fetchComicInfo = async (slug: string): Promise<IComicAPIResponse> => {
-    const response = await fetch(`${baseUrl}/comic/${slug}`);
+    const response = await fetch(`${baseUrl}/comic/${slug}`, );
     if (!response.ok) {
         throw new Error('Network call failed');
     }
@@ -19,7 +19,7 @@ export const fetchComicInfo = async (slug: string): Promise<IComicAPIResponse> =
 };
 
 export const fetchChapterListInfo = async (hid: string, chapterTotal: number): Promise<IChaptersAPIResponse> => {
-    const response = await fetch(`${baseUrl}/comic/${hid}/chapters?limit=${Math.floor(chapterTotal) * 20}&lang=en`);
+    const response = await fetch(`${baseUrl}/comic/${hid}/chapters?limit=${Math.floor(chapterTotal + 1) * 20}&lang=en`);
     if (!response.ok) {
         throw new Error('Network call failed');
     }
