@@ -7,6 +7,7 @@ const Pages = ({ pages, chapterID, nextChapter, prevChapter }: IPagesProps) => {
     const scrollPosition = useMangaStore(state => state.scrollPosition);
     const {selectedSlug} = useParams()
     const navigate = useNavigate()
+    const readOrientation = useMangaStore(state => state.orientation)
     
     useEffect(() => {
         window.scrollTo(0, scrollPosition.position);
@@ -41,7 +42,7 @@ const Pages = ({ pages, chapterID, nextChapter, prevChapter }: IPagesProps) => {
 
     return (
 
-        <div className="overflow-y-scroll flex flex-col place-self-center md:w-1/2 md:mr-[25%] md:ml-[25%]">
+        <div className={`overflow-y-scroll flex ${readOrientation == "vertical" ? "flex-col place-self-center md:w-1/2 md:mr-[25%] md:ml-[25%]" : "flex-row place-self-center carousel" }`}>
             {pages.reverse().map((page) => { return (<img loading="lazy" key={page.b2key} src={`${baseImageUrl}/${page.b2key}`} className={`w-full h-[${page.h}px]`}></img>) })}
             <div className="h-svh flex flex-col text-4xl justify-around">
                 <p className="place-self-center">fin.</p>
