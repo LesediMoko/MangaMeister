@@ -74,4 +74,5 @@ export interface MangaReaderState {
     selectedFilterType: "" | "genre" | "status",
     selectedGenres: string[];
     scrollPosition: { chapterID: string, position: number };
+    orientation: "vertical" | "horizontal";
 }

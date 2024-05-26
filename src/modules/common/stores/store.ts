@@ -17,7 +17,8 @@ export const useMangaStore = create<MangaReaderState>()(persist((_set, _get) =>
     selectedGenres: [],
     selectedStatus: -1,
     selectedFilterType: "",
-    scrollPosition: { chapterID: "", position: 0 }
+    scrollPosition: { chapterID: "", position: 0 },
+    orientation: "vertical"
 }),
     { name: 'manga-reader-store', storage: createJSONStorage(() => localStorage) }));
 
