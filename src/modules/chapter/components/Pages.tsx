@@ -61,18 +61,36 @@ const Pages = ({ pages, chapterID, nextChapter, prevChapter }: IPagesProps) => {
       }, [readOrientation, currentPage]);
     
 
+    // useEffect(() => {
+    //     const handleScroll = () => {
+    //         const currentPosition = window.scrollY;
+    //         useMangaStore.setState({ scrollPosition: { chapterID: chapterID, position: currentPosition } });
+    //     };
+
+    //     window.addEventListener("scroll", handleScroll);
+
+    //     return () => {
+    //         window.removeEventListener("scroll", handleScroll);
+    //     };
+    // }, [useMangaStore.getState().scrollPosition.position, chapterID]);
+    const handleScroll = () => {
+        console.log("scrolling")
+        const currentPosition = window.scrollY;
+        useMangaStore.setState({ scrollPosition: { chapterID: chapterID, position: currentPosition } });
+    };
+    
+
     useEffect(() => {
-        const handleScroll = () => {
-            const currentPosition = window.scrollY;
-            useMangaStore.setState({ scrollPosition: { chapterID: chapterID, position: currentPosition } });
-        };
-
         window.addEventListener("scroll", handleScroll);
-
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, [useMangaStore.getState().scrollPosition.position, chapterID]);
+        
+    
+            
+    
+            return () => {
+                window.addEventListener("scroll", handleScroll);
+                window.removeEventListener("scroll", handleScroll);
+            };
+        }, []);
 
     const goToNextChapter = () => {
         navigate(`/view-manga/${selectedSlug}/${nextChapter?.hid}`)
