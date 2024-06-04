@@ -14,8 +14,9 @@ const SearchDropdown = () => {
     return (
         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-full place-self-center mt-16 m-4">
             {filteredData!.slice(0, 4).map((item) => (
+                <Link to={`/view-manga/${item.slug}`} state={{ previousPage: "Discover" }} className="flex flex-row gap-4">
                 <li key={item.slug} className="h-1/3 w-full border-b-2">
-                    <Link to={`/view-manga/${item.slug}`} state={{ previousPage: "Discover" }} className="flex flex-row gap-4">
+                    
                         <div className="w-1/4  h-40 bg-cover bg-center bg-no-repeat flex flex-col justify-end rounded-lg" style={{ backgroundImage: `url(${useMangaStore.getState().imageUrlPrefix}${item.md_covers[0].b2key})` }}>
 
                         </div>
@@ -23,8 +24,9 @@ const SearchDropdown = () => {
                             <strong className="place-self-center rounded h-1/6 line-clamp-1">{item.title}</strong>
                             <p className=" line-clamp-3">{item.desc}</p>
                         </div>
-                    </Link>
+                    
                 </li>
+                </Link>
             ))}
         </ul>
     )
