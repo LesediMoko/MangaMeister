@@ -5,6 +5,7 @@ import useMangaStore from "../../common/stores/store";
 import { MagicMotion } from "react-magic-motion";
 import ResultListItem from "./ResultListItem";
 import Pagination from "../../common/components/Pagination";
+import { DNA } from "react-loader-spinner";
 
 const ResultList = () => {
     const { apiRequest, payload } = getFilterRequestAndPayload(useMangaStore.getState().selectedFilterType)!
@@ -21,7 +22,14 @@ const ResultList = () => {
     }, [selectedGenres, selectedStatus, selectedFilterType]);
 
     if (isPending)
-        return <div>Loading...</div>
+        return <div className="place-self-center"><DNA
+    visible={true}
+    height="80"
+    width="80"
+    ariaLabel="dna-loading"
+    wrapperStyle={{}}
+    wrapperClass="dna-wrapper"
+    /></div>
 
     if (error)
         return <div>Error: {error.message}</div>
@@ -33,7 +41,7 @@ const ResultList = () => {
         const currentPageMangas = filteredData.slice(indexOfFirstRecord, indexOfLastRecord);
 
         return (
-            <div className="flex flex-col gap-8 lg:mb-20">
+            <div className="flex flex-col gap-8 lg:mb-20 mb-20">
                 <p className="place-self-center text-2xl mt-4">
                     Results
                 </p>
@@ -52,7 +60,7 @@ const ResultList = () => {
                                 .includes(searchText.toLowerCase().trim())
                             )
                             .map((item) => (
-                                <ResultListItem key={item.slug} title={item.title} coverImage={useMangaStore.getState().imageUrlPrefix + item.md_covers[0].b2key} slug={item.slug} />
+                                <ResultListItem key={item.slug} title={item.title} coverImage={useMangaStore.getState().imageUrlPrefix + item.md_covers[0].b2key} slug={item.slug} previousPage="Discover"/>
                             ))}
                     </div>
                 </MagicMotion>

@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import LazySuspenseWrapper from './modules/common/components/LazySuspenseWrapper';
+import { AnimatePresence } from 'framer-motion';
 
 const MangaDetails = React.lazy(() => import('./modules/manga-details/components/MangaDetails'));
 const Chapter = React.lazy(() => import('./modules/chapter/components/Chapter'));
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <LazySuspenseWrapper><Home /></LazySuspenseWrapper>,
+
   },
   {
     path: "view-manga/:selectedSlug",
@@ -48,6 +50,7 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <LazySuspenseWrapper><ErrorPage /></LazySuspenseWrapper>,
+    
   }
 ]);
 

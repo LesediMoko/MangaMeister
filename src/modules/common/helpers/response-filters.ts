@@ -19,6 +19,7 @@ export const comicResponseFilter = (apiResponse: IComicAPIResponse, apiComicSlug
         authors: apiResponse.authors,
         artists: apiResponse.artists,
         hid: apiResponse.comic.hid,
+        recommendations: apiResponse.comic.recommendations,
         chapterList: chapterList
     }
     return newSelectedMangaState;

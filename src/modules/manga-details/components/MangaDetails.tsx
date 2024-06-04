@@ -10,10 +10,11 @@ import { useLocation } from 'react-router-dom';
 import { MdHistoryEdu } from "react-icons/md";
 import { HiOutlinePaintBrush } from "react-icons/hi2";
 import ReactMarkdown from 'react-markdown'
-import { useState } from 'react';
+import {  useState } from 'react';
 import MangaDetailsSkeleton from './MangaDetailsSkeleton';
 import LoadErrorPage from '../../error-page/LoadErrorPage';
 import React from 'react';
+import Recommendations from './Recommendations';
 
 
 const MangaDetails = () => {
@@ -29,17 +30,20 @@ const MangaDetails = () => {
 
     const [selectedScans, setSelectedScans] = useState<string[]>([])
     const [initialRender, setInitialRender] = useState(false)
+   
 
 
     const comicHid = comicInfo?.comic?.hid;
     const comicChapterTotal = comicInfo?.comic?.last_chapter;
-    console.log('comicHid', comicHid)
+    
 
     const { isPending: isPendingChapterList, isError: errorChapterList, data: chapterListInfo } = useQuery({
         queryKey: ['fetchChapterList', comicHid],
         queryFn: () => fetchChapterListInfo(comicHid ?? '', comicChapterTotal ?? 0),
         enabled: !!comicHid 
     })
+
+    
   
 
     if (isPendingComic || isPendingChapterList) {
@@ -50,7 +54,7 @@ const MangaDetails = () => {
     
 
     if (errorComic || errorChapterList) {
-        console.log('inside error')
+       
         return (<LoadErrorPage />)
     }
 
@@ -85,7 +89,7 @@ const MangaDetails = () => {
         <>
             <div className='bg-light-primary text-light-secondary dark:bg-dark-primary dark:text-dark-secondary min-h-screen max-h-full overflow-y-scroll'>
                 <NavBar previousPage={previousPage} />
-                <div className="flex flex-col w-full gap-4 pl-4 md:flex-row mt-20 place-self-center">
+                <div className="flex flex-col w-full gap-4 pl-4 md:flex-row mt-20 place-self-center mb-10">
                     <img className='h-1/2 w-3/5 place-self-center p-2 m-4 rounded-xl border md:h-80 md:place-self-start md:w-1/6' src={useMangaStore.getState().selectedManga?.coverImage} alt={`${useMangaStore.getState().selectedManga?.title} Cover`} />
                     <div className='flex flex-col gap-4 pl-4 md:text-left md:flex-col md:justify-center md:place-items-start'>
                         <h3 className="card-title  text-4xl">{useMangaStore.getState().selectedManga?.title}</h3>
@@ -109,6 +113,7 @@ const MangaDetails = () => {
                             )
                             )}
                         </div>
+                        
                         <p>{useMangaStore.getState().selectedManga?.chapterTotal} Chapters</p>
 
                         <h5 className='md:hidden'>Description</h5>
@@ -124,8 +129,11 @@ const MangaDetails = () => {
                         </div>
                     </div>
                 </div>
+                <div role="tablist" className="tabs tabs-lifted w-full">
                 <ChapterList listOfChapters={useMangaStore.getState().selectedManga!.chapterList.filter(chapter => selectedScans.includes(chapter.groupName))} />
-
+                <Recommendations recommendations={currentManga.recommendations} currentPageMangaTitle={useMangaStore.getState().selectedManga?.title ?? "Home"}/>
+                
+                </div>
             </div>
         </>
     );

@@ -1,6 +1,6 @@
 import { IChapterInfoAPIResponse, IChaptersAPIResponse, IComicAPIResponse, IGenreListAPIResponse, ITopComicsAPIResponse } from "../types/api-types";
 
-const baseUrl = 'https://api.comick.fun';
+const baseUrl = 'https://react-server-g0y4.onrender.com/api';
 
 export const fetchTrendingMangas = async (): Promise<ITopComicsAPIResponse> => {
     const response = await fetch(`${baseUrl}/top?comic_types=manga&accept_mature_content=false`);

@@ -1,5 +1,5 @@
 import { IGenreListAPIResponse } from "./api-types";
-import { IAdjacentChapter, IArtist, IAuthor, IMDImages } from "./subtypes";
+import { IAdjacentChapter, IArtist, IAuthor, IMDImages, IRecommendation } from "./subtypes";
 
 export interface ISelectedManga {
     slug: string;
@@ -12,6 +12,7 @@ export interface ISelectedManga {
     coverImage: string;
     authors: IAuthor[];
     artists: IArtist[]
+    recommendations?: IRecommendation[]
 }
 
 export interface ITrendingMangaApp {
@@ -30,6 +31,7 @@ export interface ISelectedChapter {
     upCount: number;
     coverImage?: string;
     comicHid?: string;
+    comicSlug?: string;
     pages?: IMDImages[];
     groupName: string;
 }
@@ -74,5 +76,6 @@ export interface MangaReaderState {
     selectedFilterType: "" | "genre" | "status",
     selectedGenres: string[];
     scrollPosition: { chapterID: string, position: number };
+    scrollPositionHorizontal: { chapterID: string, offsetLeft: number, offsetWidth: number};
     orientation: "vertical" | "horizontal";
 }

@@ -7,14 +7,14 @@ const NavBar = ({ previousPage} : { previousPage: string, onOrientationClick? : 
     const location = useLocation()
     const orientationValue = useMangaStore(state => state.orientation)
     const handleOrientationChange = () => {
-        console.log("orientation clicked")
-        console.log(`old orientation value: ${orientationValue}`)
         if(orientationValue === "vertical"){
             useMangaStore.setState({orientation: "horizontal"})
+           
         }else{
             useMangaStore.setState({orientation: "vertical"})
+         
         }
-        console.log(`new orientation value: ${orientationValue}`)
+       
     }
     return (
         <div className="navbar  w-full place-self-center fixed z-20 top-0 bg-light-primary dark:bg-dark-primary">
@@ -26,6 +26,7 @@ const NavBar = ({ previousPage} : { previousPage: string, onOrientationClick? : 
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                         {!(previousPage == "Home") && <li><a onClick={() => navigate(-1)}>Back to {previousPage}</a></li>}
                         <li><Link to="/">Home</Link></li>
+                        
                     </ul>
                 </div>
             </div>
@@ -40,6 +41,7 @@ const NavBar = ({ previousPage} : { previousPage: string, onOrientationClick? : 
                 <img src="/icon.webp" alt="icon" className="h-8 w-8 opacity-65 rounded-full" />
                 }
             </div>
+            
         </div>
     )
 }
