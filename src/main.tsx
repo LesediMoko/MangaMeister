@@ -56,6 +56,13 @@ const router = createBrowserRouter([
 
 const queryClient = new QueryClient()
 
+if ('serviceWorker' in navigator)
+{
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+  })
+}
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
