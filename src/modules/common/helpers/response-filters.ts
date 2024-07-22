@@ -60,7 +60,7 @@ export const carouselFilter = (apiResponse: ITopComicsAPIResponse, category: str
                 return newMangaListState
             }
 
-            break;
+            
         case "popular":
             {
                 if (!(apiResponse && apiResponse.topFollowComics && apiResponse.topFollowComics["7"] && apiResponse?.topFollowComics["7"]?.length > 0))
@@ -77,7 +77,7 @@ export const carouselFilter = (apiResponse: ITopComicsAPIResponse, category: str
                 return newMangaListState
             }
 
-            break;
+           
         case "rank":
             {
                 if (!(apiResponse && apiResponse.rank && apiResponse.rank?.length > 0))
@@ -94,11 +94,11 @@ export const carouselFilter = (apiResponse: ITopComicsAPIResponse, category: str
                 return newMangaListState
             }
 
-            break;
+            
 
         default:
             return []
-            break;
+            
     }
 
 }
