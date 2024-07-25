@@ -3,8 +3,8 @@ self.addEventListener('install', function(event) {
         caches.open('v1').then(function(cache) {
         return cache.addAll([
             '/index.html',
-            '/styles/index.css',
-            '/script/main.tsx'
+            './index.css',
+            './main.tsx'
         ]);
         })
     );
