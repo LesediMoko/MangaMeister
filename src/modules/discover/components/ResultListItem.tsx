@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 
-const ResultListItem = ({ title, coverImage, slug }: { title: string; coverImage: string, slug: string }) => {
+const ResultListItem = ({ title, coverImage, slug, previousPage }: { title: string; coverImage: string, slug: string, previousPage : string }) => {
 
     return (
-        <Link to={`/view-manga/${slug}`} state={{ previousPage: "Discovery" }} className="w-[30%]">
+        <Link to={`/view-manga/${slug}`} state={{ previousPage: previousPage }} className="w-[30%] mb-5">
             <div className="card lg:h-full rounded-none gap-1">
                 <figure className="h-56 lg:h-full w-full "><img src={coverImage} alt={title} className="w-full h-56 lg:h-full image-full object-cover" /></figure>
                 <div className="card-body p-0">

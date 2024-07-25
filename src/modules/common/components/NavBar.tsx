@@ -1,7 +1,21 @@
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import { CgScrollH, CgScrollV } from "react-icons/cg";
+import useMangaStore from "../stores/store";
 
-const NavBar = ({ previousPage }: { previousPage: string }) => {
+const NavBar = ({ previousPage} : { previousPage: string, onOrientationClick? : (orientation : string | undefined)=> void}) => {
     const navigate = useNavigate()
+    const location = useLocation()
+    const orientationValue = useMangaStore(state => state.orientation)
+    const handleOrientationChange = () => {
+        if(orientationValue === "vertical"){
+            useMangaStore.setState({orientation: "horizontal"})
+           
+        }else{
+            useMangaStore.setState({orientation: "vertical"})
+         
+        }
+       
+    }
     return (
         <div className="navbar  w-full place-self-center fixed z-20 top-0 bg-light-primary dark:bg-dark-primary">
             <div className="navbar-start">
@@ -12,6 +26,7 @@ const NavBar = ({ previousPage }: { previousPage: string }) => {
                     <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                         {!(previousPage == "Home") && <li><a onClick={() => navigate(-1)}>Back to {previousPage}</a></li>}
                         <li><Link to="/">Home</Link></li>
+                        
                     </ul>
                 </div>
             </div>
@@ -19,8 +34,14 @@ const NavBar = ({ previousPage }: { previousPage: string }) => {
                 <a className="btn btn-ghost text-xl">MangaMeister</a>
             </div>
             <div className="navbar-end">
+                {location.pathname.match(/view-manga\/[^\\/]+\/[^\\/]+/) ? 
+                orientationValue === "vertical" ?
+                <CgScrollV className="h-8 w-8 opacity-65 rounded-full" onClick={handleOrientationChange}/> :
+                <CgScrollH className="h-8 w-8 opacity-65 rounded-full" onClick={handleOrientationChange}/> :
                 <img src="/icon.webp" alt="icon" className="h-8 w-8 opacity-65 rounded-full" />
+                }
             </div>
+            
         </div>
     )
 }

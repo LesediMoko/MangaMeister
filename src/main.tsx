@@ -8,6 +8,7 @@ import {
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import LazySuspenseWrapper from './modules/common/components/LazySuspenseWrapper';
 
+
 const MangaDetails = React.lazy(() => import('./modules/manga-details/components/MangaDetails'));
 const Chapter = React.lazy(() => import('./modules/chapter/components/Chapter'));
 const Home = React.lazy(() => import('./modules/home/components/Home'));
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <LazySuspenseWrapper><Home /></LazySuspenseWrapper>,
+
   },
   {
     path: "view-manga/:selectedSlug",
@@ -48,10 +50,18 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <LazySuspenseWrapper><ErrorPage /></LazySuspenseWrapper>,
+    
   }
 ]);
 
 const queryClient = new QueryClient()
+
+if ('serviceWorker' in navigator)
+{
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./../service-worker.js', {type: 'module'})
+  })
+}
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
